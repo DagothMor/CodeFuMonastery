@@ -142,6 +142,9 @@ namespace AlgorithmsDataStructures
 
 		public void InsertAfter(Node _nodeAfter, Node _nodeToInsert)
 		{
+
+			if (_nodeToInsert == null) return;
+
 			Node node = head;
 
 			if (_nodeAfter == null)
