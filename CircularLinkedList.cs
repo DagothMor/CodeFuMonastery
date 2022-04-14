@@ -21,6 +21,10 @@ namespace AlgorithmsDataStructures
 		{
 			head = dummyHead;
 			tail = dummyTail;
+			head.next = tail;
+			head.prev = tail;
+			tail.prev = head;
+			tail.next = head;
 		}
 
 		public void AddInTail(Node _item)
@@ -65,8 +69,8 @@ namespace AlgorithmsDataStructures
 					node.next.prev = node.prev;
 					return true;
 				}
+				node = node.next;
 			}
-			node = node.next;
 			return false;
 		}
 
@@ -89,8 +93,10 @@ namespace AlgorithmsDataStructures
 		public void Clear()
 		{
 			if (head.next == tail) return;
-			head.next = null;
-			tail.prev = null;
+			head.next = tail;
+			head.prev = tail;
+			tail.prev = head;
+			tail.next = head;
 		}
 
 		public int Count()
@@ -127,6 +133,7 @@ namespace AlgorithmsDataStructures
 				if (node.Equals(_nodeAfter))
 				{
 					_nodeToInsert.next = node.next;
+					node.next.prev = _nodeToInsert;
 					node.next = _nodeToInsert;
 					_nodeToInsert.prev = node;
 					break;
