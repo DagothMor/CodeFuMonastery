@@ -4,15 +4,15 @@ namespace AlgorithmsDataStructures
 {
 	public class DNode : Node
 	{
-		public DNode()
+		public DNode(int _value) : base(_value)
 		{
-			value = null;
+			value = 0;
 		}
 	}
 	public class DLinkedList
 	{
-		private DNode dummyHead = new DNode();
-		private DNode dummyTail = new DNode();
+		private DNode dummyHead = new DNode(0);
+		private DNode dummyTail = new DNode(0);
 
 		public DNode head;
 		public DNode tail;
