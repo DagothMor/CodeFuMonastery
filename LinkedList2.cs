@@ -76,7 +76,6 @@ namespace AlgorithmsDataStructures
 					if (node.prev == null)
 					{
 						head = node.next;
-						//head.prev = null;
 						node = head;
 						if (node == null) tail = null;
 						else node.prev = null;
@@ -109,7 +108,6 @@ namespace AlgorithmsDataStructures
 					if (node.prev == null)
 					{
 						head = node.next;
-						//head.prev = null;
 						node = head;
 						if (node == null) tail = null;
 						else node.prev = null;
