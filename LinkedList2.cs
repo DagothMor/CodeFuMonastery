@@ -6,12 +6,18 @@ namespace AlgorithmsDataStructures
 
 	public class Node
 	{
-		public int value;
+		public int? value;
 		public Node next, prev;
 
-		public Node(int _value)
+		public Node(int? _value)
 		{
-			value = _value;
+			value = _value == null ? null : _value;
+			next = null;
+			prev = null;
+		}
+		public Node()
+		{
+			value = null;
 			next = null;
 			prev = null;
 		}

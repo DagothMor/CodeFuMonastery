@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircularLinkedList.cs" />
     <Compile Include="LinkedList2.cs" />
     <Compile Include="LinkedList2Controller.cs" />
     <Compile Include="LinkedListController.cs" />
