@@ -21,7 +21,7 @@ namespace AlgorithmsDataStructures
 			if (new_capacity < 16) new_capacity = 16;
 
 			T[] temp = new T[new_capacity];
-			for (int i = 0; i < capacity; i++)
+			for (int i = 0; i < count; i++)
 			{
 				temp[i] = array[i];
 			}
@@ -70,9 +70,9 @@ namespace AlgorithmsDataStructures
 
 		public void Remove(int index)
 		{
-			if (index > count || index < 0) throw new ArgumentOutOfRangeException();
+			if (index > count - 1 || index < 0) throw new ArgumentOutOfRangeException();
 
-			if (capacity != 16 && count - 1 < (int)capacity / 2) MakeArray((int)(capacity / 1.5));
+			if (capacity > 16 && count - 2 <= (int)capacity / 2) MakeArray((int)(capacity / 1.5));
 
 			T[] temp = new T[capacity];
 
@@ -80,9 +80,9 @@ namespace AlgorithmsDataStructures
 			{
 				temp[i] = array[i];
 			}
-			for (int i = index++; i < count; i++)
+			for (int i = index + 1; i < count; i++)
 			{
-				temp[i] = array[i];
+				temp[i-1] = array[i];
 			}
 
 			array = temp;
