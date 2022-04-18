@@ -32,7 +32,7 @@ namespace AlgorithmsDataStructures
 
 		public T GetItem(int index)
 		{
-			if (index > count || index < 0) throw new ArgumentOutOfRangeException();
+			if (index > count - 1 || index < 0) throw new ArgumentOutOfRangeException();
 			return array[index];
 		}
 
