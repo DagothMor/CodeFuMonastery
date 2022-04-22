@@ -6,10 +6,10 @@ namespace AlgorithmsDataStructures
 
     public class Stack<T>
     {
-		readonly List<T> stack = new List<T>();
+		readonly LinkedList<T> stack = new LinkedList<T>();
         public Stack()
         {
-            stack = new List<T>();
+            stack = new LinkedList<T>();
         }
 
         public int Size()
@@ -20,20 +20,20 @@ namespace AlgorithmsDataStructures
         public T Pop()
         {
             if(stack.Count == 0) return default(T);
-            var kek = stack[0];
-            stack.RemoveAt(0);
-            return kek;
+            var node = stack.First;
+            stack.RemoveFirst();
+            return node.Value;
         }
 
         public void Push(T val)
         {
-            stack.Add(val);
+            stack.AddLast(val);
         }
 
         public T Peek()
         {
             if (stack.Count == 0) return default(T);
-            return stack[0];
+            return stack.First.Value;
         }
     }
 
