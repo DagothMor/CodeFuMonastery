@@ -20,20 +20,20 @@ namespace AlgorithmsDataStructures
         public T Pop()
         {
             if(stack.Count == 0) return default(T);
-            var kek = stack[stack.Count-1];
-            stack.RemoveAt(stack.Count-1);
+            var kek = stack[0];
+            stack.RemoveAt(0);
             return kek;
         }
 
         public void Push(T val)
         {
-            stack.Insert(0,val);
+            stack.Add(val);
         }
 
         public T Peek()
         {
             if (stack.Count == 0) return default(T);
-            return stack[stack.Count-1];
+            return stack[0];
         }
     }
 
