@@ -20,9 +20,9 @@ namespace AlgorithmsDataStructures
 		public T Pop()
 		{
 			if (stack.Count == 0) return default(T);
-			var node = stack.First;
-			stack.RemoveFirst();
-			return node.Value;
+			var value = stack.Last.Value;
+			stack.RemoveLast();
+			return value;
 		}
 
 		public void Push(T val)
@@ -33,7 +33,7 @@ namespace AlgorithmsDataStructures
 		public T Peek()
 		{
 			if (stack.Count == 0) return default(T);
-			return stack.First.Value;
+			return stack.Last.Value;
 		}
 	}
 
