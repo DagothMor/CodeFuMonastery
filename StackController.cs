@@ -24,7 +24,6 @@ namespace CodeFuMonastery
 
 		public static float PostfixNotationOfAnExpressionThroughString(string stringin)
 		{
-			//var s1 = new AlgorithmsDataStructures.Stack<int>();
 			var s2 = new AlgorithmsDataStructures.Stack<float>();
 
 
@@ -38,6 +37,16 @@ namespace CodeFuMonastery
 				if (ch == '+')
 				{
 					s2.Push(sum(s2.Pop(),s2.Pop()));
+				}
+
+				if (ch == '-')
+				{
+					s2.Push(sub(s2.Pop(), s2.Pop()));
+				}
+
+				if (ch == '/')
+				{
+					s2.Push(div(s2.Pop(), s2.Pop()));
 				}
 
 				if (ch == '*')
