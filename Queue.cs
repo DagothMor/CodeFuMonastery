@@ -6,25 +6,28 @@ namespace AlgorithmsDataStructures
 
     public class Queue<T>
     {
+        readonly LinkedList<T> queue = new LinkedList<T>();
         public Queue()
         {
-            // инициализация внутреннего хранилища очереди
+            queue = new LinkedList<T>();
         }
 
         public void Enqueue(T item)
         {
-            // вставка в хвост
+            queue.AddFirst(item);
         }
 
         public T Dequeue()
         {
-            // выдача из головы
-            return default(T); // если очередь пустая
+            if (queue.Count == 0) return default(T);
+            var value = queue.Last.Value;
+            queue.RemoveLast();
+            return value;
         }  
 
         public int Size()
         {
-            return 0; // размер очереди
+            return queue.Count;
         }
 
     }

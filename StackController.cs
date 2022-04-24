@@ -12,7 +12,7 @@ namespace CodeFuMonastery
 			{
 				if (bracket == ')')
 				{
-					if (stack.Peek() == default)
+					if (stack.Size() == 0)
 						return false;
 					stack.Pop();
 					continue;
@@ -22,17 +22,17 @@ namespace CodeFuMonastery
 			return stack.Size() == 0;
 		}
 
-		public static int PostfixNotationOfAnExpressionThroughString(string stringin)
+		public static float PostfixNotationOfAnExpressionThroughString(string stringin)
 		{
 			//var s1 = new AlgorithmsDataStructures.Stack<int>();
-			var s2 = new AlgorithmsDataStructures.Stack<int>();
+			var s2 = new AlgorithmsDataStructures.Stack<float>();
 
 
 			foreach (var ch in stringin)
 			{
 				if (char.IsDigit(ch))
 				{
-					s2.Push(Int32.Parse(ch.ToString()));
+					s2.Push(float.Parse(ch.ToString()));
 				}
 
 				if (ch == '+')
@@ -54,10 +54,9 @@ namespace CodeFuMonastery
 			
 		}
 
-		public static int PostfixNotationOfAnExpression(AlgorithmsDataStructures.Stack<char> stackin)
+		public static float PostfixNotationOfAnExpression(AlgorithmsDataStructures.Stack<char> stackin)
 		{
-			//var s1 = new AlgorithmsDataStructures.Stack<int>();
-			var s2 = new AlgorithmsDataStructures.Stack<int>();
+			var s2 = new AlgorithmsDataStructures.Stack<float>();
 
 			char buffer;
 
@@ -65,7 +64,7 @@ namespace CodeFuMonastery
 				buffer = stackin.Pop();
 				if (char.IsDigit(buffer))
 				{
-					s2.Push(Int32.Parse(buffer.ToString()));
+					s2.Push(float.Parse(buffer.ToString()));
 				}
 
 				if (buffer == '+')
@@ -73,9 +72,17 @@ namespace CodeFuMonastery
 					s2.Push(sum(s2.Pop(), s2.Pop()));
 				}
 
+				if (buffer == '-')
+				{
+					s2.Push(sub(s2.Pop(), s2.Pop()));
+				}
 				if (buffer == '*')
 				{
 					s2.Push(multiply(s2.Pop(), s2.Pop()));
+				}
+				if (buffer == '/')
+				{
+					s2.Push(div(s2.Pop(), s2.Pop()));
 				}
 
 				if (buffer == '=')
@@ -86,7 +93,9 @@ namespace CodeFuMonastery
 			return s2.Peek();
 
 		}
-		public static int sum(int a, int b) => a + b;
-		public static int multiply(int a, int b) => a * b;
+		public static float sum(float a, float b) => a + b;
+		public static float sub(float a, float b) => b - a;
+		public static float multiply(float a, float b) => a * b;
+		public static float div(float a, float b) => b / a;
 	}
 }
