@@ -22,7 +22,7 @@ namespace CodeFuMonastery
 			return stack.Size() == 0;
 		}
 
-		public static int PostfixNotationOfAnExpression(string stringin)
+		public static int PostfixNotationOfAnExpressionThroughString(string stringin)
 		{
 			//var s1 = new AlgorithmsDataStructures.Stack<int>();
 			var s2 = new AlgorithmsDataStructures.Stack<int>();
@@ -52,6 +52,39 @@ namespace CodeFuMonastery
 			}
 			return s2.Peek();
 			
+		}
+
+		public static int PostfixNotationOfAnExpression(AlgorithmsDataStructures.Stack<char> stackin)
+		{
+			//var s1 = new AlgorithmsDataStructures.Stack<int>();
+			var s2 = new AlgorithmsDataStructures.Stack<int>();
+
+			char buffer;
+
+			while (stackin.Size() > 0 ) {
+				buffer = stackin.Pop();
+				if (char.IsDigit(buffer))
+				{
+					s2.Push(Int32.Parse(buffer.ToString()));
+				}
+
+				if (buffer == '+')
+				{
+					s2.Push(sum(s2.Pop(), s2.Pop()));
+				}
+
+				if (buffer == '*')
+				{
+					s2.Push(multiply(s2.Pop(), s2.Pop()));
+				}
+
+				if (buffer == '=')
+				{
+					return s2.Peek();
+				}
+			}
+			return s2.Peek();
+
 		}
 		public static int sum(int a, int b) => a + b;
 		public static int multiply(int a, int b) => a * b;
