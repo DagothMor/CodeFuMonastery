@@ -55,6 +55,7 @@
     <Compile Include="QueueController.cs" />
     <Compile Include="Stack.cs" />
     <Compile Include="StackController.cs" />
+    <Compile Include="TwoStacksQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
