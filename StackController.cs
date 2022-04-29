@@ -75,37 +75,38 @@ namespace CodeFuMonastery
             while (stackin.Size() > 0)
             {
                 buffer = stackin.Pop();
+
                 if (char.IsDigit(buffer))
                 {
                     s2.Push(float.Parse(buffer.ToString()));
-                }
-
-                if (buffer == '+')
-                {
-                    s2.Push(sum(s2.Pop(), s2.Pop()));
-                }
-
-                if (buffer == '-')
-                {
-                    second = s2.Pop();
-                    first = s2.Pop();
-                    s2.Push(sub(first, second));
-                }
-
-                if (buffer == '*')
-                {
-                    s2.Push(multiply(s2.Pop(), s2.Pop()));
-                }
-                if (buffer == '/')
-                {
-                    second = s2.Pop();
-                    first = s2.Pop();
-                    s2.Push(div(first, second));
+                    continue;
                 }
 
                 if (buffer == '=')
                 {
                     return s2.Peek();
+                }
+
+                second = s2.Pop();
+                first = s2.Pop();
+
+                if (buffer == '+')
+                {
+                    s2.Push(sum(first, second));
+                }
+
+                if (buffer == '-')
+                {
+                    s2.Push(sub(first, second));
+                }
+
+                if (buffer == '*')
+                {
+                    s2.Push(multiply(first, second));
+                }
+                if (buffer == '/')
+                {
+                    s2.Push(div(first, second));
                 }
             }
             return s2.Peek();
