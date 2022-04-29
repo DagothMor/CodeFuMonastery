@@ -33,11 +33,17 @@ namespace CodeFuMonastery
                 if (char.IsDigit(ch))
                 {
                     s2.Push(float.Parse(ch.ToString()));
+                    continue;
                 }
 
                 if (ch == '=')
                 {
                     return s2.Peek();
+                }
+
+                if (ch == ' ' || char.IsLetter(ch) )
+                {
+                    continue;
                 }
 
                 second = s2.Pop();
