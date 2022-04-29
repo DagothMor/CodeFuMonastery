@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CircularLinkedList.cs" />
+    <Compile Include="Deque.cs" />
+    <Compile Include="DequeController.cs" />
     <Compile Include="DynArray.cs" />
     <Compile Include="LinkedList2.cs" />
     <Compile Include="LinkedList2Controller.cs" />
