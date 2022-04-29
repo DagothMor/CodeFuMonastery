@@ -26,6 +26,7 @@ namespace CodeFuMonastery
         {
             var s2 = new AlgorithmsDataStructures.Stack<float>();
 
+            float first, second;
 
             foreach (var ch in stringin)
             {
@@ -34,29 +35,32 @@ namespace CodeFuMonastery
                     s2.Push(float.Parse(ch.ToString()));
                 }
 
+                if (ch == '=')
+                {
+                    return s2.Peek();
+                }
+
+                second = s2.Pop();
+                first = s2.Pop();
+
                 if (ch == '+')
                 {
-                    s2.Push(sum(s2.Pop(), s2.Pop()));
+                    s2.Push(sum(first, second));
                 }
 
                 if (ch == '-')
                 {
-                    s2.Push(sub(s2.Pop(), s2.Pop()));
+                    s2.Push(sub(first, second));
                 }
 
                 if (ch == '/')
                 {
-                    s2.Push(div(s2.Pop(), s2.Pop()));
+                    s2.Push(div(first, second));
                 }
 
                 if (ch == '*')
                 {
-                    s2.Push(multiply(s2.Pop(), s2.Pop()));
-                }
-
-                if (ch == '=')
-                {
-                    return s2.Peek();
+                    s2.Push(multiply(first, second));
                 }
             }
             return s2.Peek();
@@ -69,7 +73,6 @@ namespace CodeFuMonastery
 
             char buffer;
             
-            // for variable order
             float first, second;
 
             while (stackin.Size() > 0)
