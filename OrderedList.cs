@@ -51,6 +51,7 @@ namespace AlgorithmsDataStructures
 		{
 			var newNode = new Node<T>(value);
 			var node = head;
+			int isAscending = _ascending ? 1 : -1;
 			if (node == null)
 			{
 				head = newNode;
@@ -59,9 +60,7 @@ namespace AlgorithmsDataStructures
 				tail = newNode;
 				return;
 			}
-			if (_ascending)
-			{
-				if (Compare(head.value,newNode.value) == 1)
+				if (Compare(head.value, newNode.value) == isAscending)
 				{
 					newNode.next = node;
 					node.prev = newNode;
@@ -70,7 +69,7 @@ namespace AlgorithmsDataStructures
 				}
 				while (node.next != null)
 				{
-					if (Compare(node.value,newNode.value ) == 1)
+					if (Compare(node.value, newNode.value) == isAscending)
 					{
 						newNode.prev = node.prev;
 						newNode.next = node;
@@ -80,44 +79,18 @@ namespace AlgorithmsDataStructures
 					}
 					node = node.next;
 				}
-				if (Compare(node.value, newNode.value) == -1)
+				if (Compare(node.value, newNode.value) == isAscending)
 				{
-					tail.next = newNode;
-					newNode.prev = tail;
-					tail = newNode;
-					return;
-				}
-				
-
-				//newNode.prev = node.prev;
-				//newNode.next = node;
-				//node.prev.next = newNode;
-				//node.prev = newNode;
-				return;
-			}
-
-			if (Compare(head.value,newNode.value ) == -1)
-			{
-				newNode.next = node;
-				node.prev = newNode;
-				head = newNode;
-				return;
-			}
-			while (node.next != null)
-			{
-				if (Compare(node.value,newNode.value) == -1)
-				{
-					newNode.next = node;
 					newNode.prev = node.prev;
+					newNode.next = node;
+					node.prev.next = newNode;
 					node.prev = newNode;
 					return;
 				}
-				node = node.next;
-			}
-			tail.next = newNode;
-			newNode.prev = tail;
-			tail = newNode;
-			return;
+				tail.next = newNode;
+				newNode.prev = tail;
+				tail = newNode;
+				return;
 		}
 
 		public Node<T> Find(T val)
@@ -127,7 +100,7 @@ namespace AlgorithmsDataStructures
 			if (this._ascending == true && Compare(tail.value, val) == -1) return null;
 			if (this._ascending == false && Compare(head.value, val) == -1) return null;
 			if (this._ascending == false && Compare(tail.value, val) == 1) return null;
-			var node = BinarySearch(GetAll(),val);
+			var node = BinarySearch(GetAll(), val);
 			return node;
 		}
 
@@ -192,25 +165,30 @@ namespace AlgorithmsDataStructures
 			}
 			return r;
 		}
-		private static int FirstValueIsBiggerByLexicographicOrder(string firstVal, string secondVal)
+		private int FirstValueIsBiggerByLexicographicOrder(string firstVal, string secondVal)
 		{
+			var isAscending = this._ascending?1:-1;
 			if (firstVal == secondVal) return 0;
 			if (firstVal.Length > secondVal.Length)
 			{
 				for (int i = 0; i < secondVal.Length; i++)
 				{
-					if (firstVal[i] < secondVal[i]) return -1;
+					if (secondVal[i] == firstVal[i]) continue;
+					if (secondVal[i] < firstVal[i]) return 1;
+					if (secondVal[i] > firstVal[i]) return -1;
 				}
 				return 1;
 			}
 			for (int i = 0; i < firstVal.Length; i++)
 			{
-				if (secondVal[i]> firstVal[i]) return -1;
+				if (secondVal[i] == firstVal[i]) continue;
+				if (secondVal[i] < firstVal[i]) return 1;
+				if (secondVal[i] > firstVal[i]) return -1;
 			}
-			return 1;
+			return -1;
 		}
 
-		private Node<T> BinarySearch(List<Node<T>> list,T val)
+		private Node<T> BinarySearch(List<Node<T>> list, T val)
 		{
 			if (list.Count == 0) return null;
 			var first = 0;
@@ -220,9 +198,9 @@ namespace AlgorithmsDataStructures
 
 			int compareState;
 
-			while (first<=last) 
+			while (first <= last)
 			{
-				middlepoint = (int)((first+last)/2);
+				middlepoint = (int)((first + last) / 2);
 				compareState = Compare(list[middlepoint].value, val);
 				if (compareState == 0)
 				{
