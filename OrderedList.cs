@@ -168,24 +168,48 @@ namespace AlgorithmsDataStructures
 		private int FirstValueIsBiggerByLexicographicOrder(string firstVal, string secondVal)
 		{
 			var isAscending = this._ascending?1:-1;
-			if (firstVal == secondVal) return 0;
-			if (firstVal.Length > secondVal.Length)
+			if (this._ascending)
 			{
-				for (int i = 0; i < secondVal.Length; i++)
+				if (firstVal == secondVal) return 0;
+				if (firstVal.Length > secondVal.Length)
+				{
+					for (int i = 0; i < secondVal.Length; i++)
+					{
+						if (secondVal[i] == firstVal[i]) continue;
+						if (secondVal[i] < firstVal[i]) return 1;
+						if (secondVal[i] > firstVal[i]) return -1;
+					}
+					return 1;
+				}
+				for (int i = 0; i < firstVal.Length; i++)
 				{
 					if (secondVal[i] == firstVal[i]) continue;
 					if (secondVal[i] < firstVal[i]) return 1;
 					if (secondVal[i] > firstVal[i]) return -1;
 				}
-				return 1;
+				return -1;
 			}
-			for (int i = 0; i < firstVal.Length; i++)
+			else 
 			{
-				if (secondVal[i] == firstVal[i]) continue;
-				if (secondVal[i] < firstVal[i]) return 1;
-				if (secondVal[i] > firstVal[i]) return -1;
+				if (firstVal == secondVal) return 0;
+				if (firstVal.Length > secondVal.Length)
+				{
+					for (int i = 0; i < secondVal.Length; i++)
+					{
+						if (secondVal[i] == firstVal[i]) continue;
+						if (secondVal[i] < firstVal[i]) return 1;
+						if (secondVal[i] > firstVal[i]) return -1;
+					}
+					return 1;
+				}
+				for (int i = 0; i < firstVal.Length; i++)
+				{
+					if (secondVal[i] == firstVal[i]) continue;
+					if (secondVal[i] < firstVal[i]) return 1;
+					if (secondVal[i] > firstVal[i]) return -1;
+				}
+				return -1;
 			}
-			return -1;
 		}
 
 		private Node<T> BinarySearch(List<Node<T>> list, T val)
