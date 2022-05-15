@@ -52,6 +52,7 @@
     <Compile Include="LinkedList2Controller.cs" />
     <Compile Include="LinkedListController.cs" />
     <Compile Include="LinkedList.cs" />
+    <Compile Include="NativeDictionary.cs" />
     <Compile Include="OrderedList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
