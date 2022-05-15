@@ -29,31 +29,74 @@ namespace AlgorithmsDataStructures
 
         public bool IsKey(string key)
         {
-            int index = HashFun(key);
-            var value = slots[index];
-            if (value == key) return true;
+            var index = HashFun(key);
+            var firstValue = slots[index];
+            var bufferValue = firstValue;
+            if (bufferValue == key) return true;
+            do
+            {
+                index += 1;
+                while (index >= slots.Length)
+                {
+                    index -= slots.Length;
+                }
+                bufferValue = slots[index];
+                if (bufferValue == default) return false;
+                if (bufferValue == key) return true;
+            }
+            while (bufferValue != firstValue);
+
             return false;
+
         }
 
         public void Put(string key, T value)
         {
-            int index = HashFun(key);
-            values[index] = value;
+            var index = HashFun(key);
+            var firstValue = slots[index];
+            var bufferValue = firstValue;
+            if (bufferValue == key && bufferValue == default)
+            {
+                values[index] = value;
+                return;
+            }
+            do
+            {
+                index += 1;
+                while (index >= slots.Length)
+                {
+                    index -= slots.Length;
+                }
+                bufferValue = slots[index];
+                if (bufferValue == key && bufferValue == default)
+                {
+                    values[index] = value;
+                    return;
+                }
+            }
+            while (bufferValue != firstValue);
         }
 
         public T Get(string key)
         {
             var index = HashFun(key);
-            try
+            var firstValue = slots[index];
+            var bufferValue = firstValue;
+            if (bufferValue == key) return values[index];
+            do
             {
-                var value = values[index];
-                return value;
+                index += 1;
+                while (index >= slots.Length)
+                {
+                    index -= slots.Length;
+                }
+                bufferValue = slots[index];
+                if (bufferValue == default) return default;
+                if (bufferValue == key) return values[index];
             }
-            catch (Exception)
-            {
+            while (bufferValue != firstValue);
 
-                return default(T);
-            }
+            return default;
         }
     }
 }
