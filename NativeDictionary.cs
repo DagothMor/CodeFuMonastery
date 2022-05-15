@@ -55,11 +55,16 @@ namespace AlgorithmsDataStructures
             var index = HashFun(key);
             var firstValue = slots[index];
             var bufferValue = firstValue;
-            if (bufferValue == key && bufferValue == default)
+            if (bufferValue == key)
             {
                 values[index] = value;
                 return;
             }
+            if (bufferValue == default) {
+                values[index] = value;
+                slots[index] = key;
+                return;
+            } 
             do
             {
                 index += 1;
@@ -68,9 +73,15 @@ namespace AlgorithmsDataStructures
                     index -= slots.Length;
                 }
                 bufferValue = slots[index];
-                if (bufferValue == key && bufferValue == default)
+                if (bufferValue == key)
                 {
                     values[index] = value;
+                    return;
+                }
+                if (bufferValue == default)
+                {
+                    values[index] = value;
+                    slots[index] = key;
                     return;
                 }
             }
@@ -83,6 +94,7 @@ namespace AlgorithmsDataStructures
             var firstValue = slots[index];
             var bufferValue = firstValue;
             if (bufferValue == key) return values[index];
+            if (bufferValue == default) return default;
             do
             {
                 index += 1;
