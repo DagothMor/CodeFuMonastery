@@ -54,6 +54,7 @@
     <Compile Include="LinkedList.cs" />
     <Compile Include="NativeDictionary.cs" />
     <Compile Include="OrderedList.cs" />
+    <Compile Include="PowerSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue.cs" />
