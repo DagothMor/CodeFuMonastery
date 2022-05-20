@@ -88,6 +88,23 @@ namespace AlgorithmsDataStructures
             var firstValue = slots[index];
             var bufferValue = firstValue;
             if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
+            if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) 
+            {
+                var startPos = index;
+                do
+                {
+                    index += step;
+                    while (index >= slots.Length)
+                    {
+                        index -= slots.Length;
+                    }
+                    bufferValue = slots[index];
+                    //if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) return false;
+                    if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
+
+                }
+                while (!index.Equals(startPos));
+            }
             do
             {
                 index += step;
@@ -96,7 +113,7 @@ namespace AlgorithmsDataStructures
                     index -= slots.Length;
                 }
                 bufferValue = slots[index];
-                if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) return false;
+                //if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) return false;
                 if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
             }
             while (!EqualityComparer<T>.Default.Equals(bufferValue, firstValue));
