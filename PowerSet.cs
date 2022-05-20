@@ -5,215 +5,116 @@ namespace AlgorithmsDataStructures
 {
     public class PowerSet<T>
     {
-        public int size;
-        public int step;
-        public T[] slots;
+        public int count;
+        public List<T> slots;
 
         public PowerSet()
         {
-            size = 20000;
-            step = 1;
-            slots = new T[size];
-            for (int i = 0; i < size; i++) slots[i] = default(T);
+            slots = new List<T>();
+            count = 0;
         }
-        public int HashFun(T value)
-        {
-            var hash = value.GetHashCode() & 0x7FFFFFFF;
-            return hash % size;
-        }
-        public int SeekSlot(T value)
-        {
-            if (EqualityComparer<T>.Default.Equals(value, default(T))) return -1;
-            int index = HashFun(value);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
-            if (EqualityComparer<T>.Default.Equals(slots[index], default(T))) return index;
-            if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return -1;
-            do
-            {
-                index += step;
-                while (index >= slots.Length)
-                {
-                    index -= slots.Length;
-                }
-                bufferValue = slots[index];
-                if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) return index;
-                if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return -1;
-            }
-            while (!EqualityComparer<T>.Default.Equals(bufferValue, firstValue));
-            return -1;
-        }
-        public void Put(T value)
-        {
-            var index = SeekSlot(value);
-            if (index != -1) slots[index] = value;
-        }
+
         public int Size()
         {
-            int count = 0;
-            foreach (var slot in slots)
-            {
-                if (EqualityComparer<T>.Default.Equals(slot, default(T)))
-                    continue;
-                count++;
-            }
             return count;
         }
+
+        public void Put(T value)
+        {
+            if (!Get(value))
+            {
+                slots.Add(value);
+                count++;
+            }
+        }
+
         public bool Get(T value)
         {
-            int index = HashFun(value);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
-            if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return true;
-            do
-            {
-                index += step;
-                while (index >= slots.Length)
-                {
-                    index -= slots.Length;
-                }
-                bufferValue = slots[index];
-                if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return true;
-                if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) return false;
-
-            }
-            while (!EqualityComparer<T>.Default.Equals(bufferValue, firstValue));
-
-            return false;
+            return slots.Contains(value);
         }
+
         public bool Remove(T value)
         {
-            if (EqualityComparer<T>.Default.Equals(value, default(T))) return false;
-            int index = HashFun(value);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
-            if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
-            if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) 
+            if (Get(value))
             {
-                var startPos = index;
-                do
-                {
-                    index += step;
-                    while (index >= slots.Length)
-                    {
-                        index -= slots.Length;
-                    }
-                    bufferValue = slots[index];
-                    if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
-
-                }
-                while (!index.Equals(startPos));
-                return false;
+                slots.Remove(value);
+                count--;
+                return true;
             }
-            do
-            {
-                index += step;
-                while (index >= slots.Length)
-                {
-                    index -= slots.Length;
-                }
-                bufferValue = slots[index];
-                if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
-            }
-            while (!EqualityComparer<T>.Default.Equals(bufferValue, firstValue));
-
             return false;
         }
+
         public PowerSet<T> Intersection(PowerSet<T> set2)
         {
-            if (set2.Size() == 0) return null;
             var powerSet = new PowerSet<T>();
-            if (set2.Size() >= this.Size())
+            if (count > 0 && set2.count > 0)
             {
-                foreach (var item in set2.slots)
+                foreach (T item in slots)
                 {
-                    if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
-                    if (this.Get(item)) powerSet.Put(item);
+                    if (set2.Get(item))
+                    {
+                        powerSet.Put(item);
+                    }
                 }
-                return powerSet.Size() == 0 ? null : powerSet;
             }
-            else
-            {
-                foreach (var item in this.slots)
-                {
-                    if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
-                    if (set2.Get(item)) powerSet.Put(item);
-                }
-                return powerSet.Size() == 0 ? null : powerSet;
-            }
+            return powerSet;
         }
+
         public PowerSet<T> Union(PowerSet<T> set2)
         {
-            if (set2.Size() == 0 && this.Size() == 0) return null;
             var powerSet = new PowerSet<T>();
-            if (set2.Size() == 0)
+            if (count > 0)
             {
-                foreach (var item in this.slots)
+                foreach (var item in slots)
                 {
-                    if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
                     powerSet.Put(item);
                 }
-                return powerSet;
             }
-            if (this.Size() == 0)
+            if (set2.count > 0)
             {
                 foreach (var item in set2.slots)
                 {
-                    if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
                     powerSet.Put(item);
                 }
-                return powerSet;
-            }
-            foreach (var item in set2.slots)
-            {
-                if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
-                powerSet.Put(item);
-            }
-            foreach (var item in this.slots)
-            {
-                if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
-                powerSet.Put(item);
             }
             return powerSet;
         }
+
         public PowerSet<T> Difference(PowerSet<T> set2)
         {
-            if (set2.Size() == 0 && this.Size() == 0) return null;
             var powerSet = new PowerSet<T>();
-            if (set2.Size() == 0)
+            if (count > 0)
             {
-                foreach (var item in this.slots)
+                foreach (T item in slots)
                 {
-                    if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
                     powerSet.Put(item);
                 }
-                return powerSet;
-            }
-            if (this.Size() == 0)
-            {
-                foreach (var item in set2.slots)
+                foreach (T item in set2.slots)
                 {
-                    if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
-                    powerSet.Put(item);
+                    powerSet.Remove(item);
                 }
-                return powerSet;
-            }
-            foreach (var item in this.slots)
-            {
-                if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
-                if (!set2.Get(item)) powerSet.Put(item);
             }
             return powerSet;
         }
+
         public bool IsSubset(PowerSet<T> set2)
         {
-            if (set2.Size() == 0) return false;
-            foreach (var item in set2.slots)
+            int count = 0;
+            if (this.count >= set2.count)
             {
-                if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
-                if (!this.Get(item)) return false;
+                foreach (T item in slots)
+                {
+                    if (set2.Get(item))
+                    {
+                        count++;
+                    }
+                }
+                if (count == set2.count)
+                {
+                    return true;
+                }
             }
-            return true;
+            return false;
         }
     }
 }
