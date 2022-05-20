@@ -104,6 +104,7 @@ namespace AlgorithmsDataStructures
 
                 }
                 while (!index.Equals(startPos));
+                return false;
             }
             do
             {
