@@ -7,7 +7,7 @@ namespace AlgorithmsDataStructures
 {
     public class ArrayOfBits
     {
-        public int lenght = 0;
+        public int lenght = 32;
         public int value = 0;
         public ArrayOfBits() { }
         public void SetValue(int bit) 
