@@ -53,6 +53,7 @@
     <Compile Include="LinkedList2Controller.cs" />
     <Compile Include="LinkedListController.cs" />
     <Compile Include="LinkedList.cs" />
+    <Compile Include="NativeCache.cs" />
     <Compile Include="NativeDictionary.cs" />
     <Compile Include="OrderedList.cs" />
     <Compile Include="PowerSet.cs" />
