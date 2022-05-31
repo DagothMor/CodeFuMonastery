@@ -209,7 +209,8 @@ namespace AlgorithmsDataStructures
         }
         public bool IsSubset(PowerSet<T> set2)
         {
-            if (set2.Size() == 0) return false;
+            if (set2.Size() == 0) return true;
+            if (this.Size() == 0) return true;
             foreach (var item in set2.slots)
             {
                 if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
