@@ -31,7 +31,7 @@ namespace AlgorithmsDataStructures
             arrayOfBits = new ArrayOfBits();
         }
 
-        public int Hash1(string str1)
+        public int Hash1(string str1) // abcdefg
         {
             if (str1.Length < 1) return 0;
 
@@ -66,8 +66,7 @@ namespace AlgorithmsDataStructures
 
         public bool IsValue(string str1)
         {
-            if (arrayOfBits.getValue(Hash1(str1)) && arrayOfBits.getValue(Hash2(str1))) return true;
-            return false;
+            return arrayOfBits.getValue(Hash1(str1)) && arrayOfBits.getValue(Hash2(str1));
         }
     }
 }
