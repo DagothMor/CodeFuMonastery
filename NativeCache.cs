@@ -24,12 +24,12 @@ namespace AlgorithmsDataStructures
 
         public int HashFun(string key)
         {
-            int index = 0;
-            foreach (var item in key)
+            int slotIndex = 0;
+            foreach (var letterInKey in key) // Будет удобно читать взаимодействие буквы в ключе с последующей внутренней логикой.
             {
-                index += ((byte)item);
+                slotIndex += ((byte)letterInKey);
             }
-            return index % size;
+            return slotIndex % size;
         }
 
         public bool IsKey(string key)

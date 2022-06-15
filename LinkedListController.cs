@@ -13,32 +13,32 @@ namespace CodeFuMonastery
 		{
 			if (firstLinkedList.Count() != secondLinkedList.Count()) return new LinkedList();
 
-			var linkedListOut = new LinkedList();
+			var ReturnLinkedList = new LinkedList();
 
-			var firstHead = firstLinkedList.head;
-			var secondHead = secondLinkedList.head;
+			var HeadOfFirstLinkedList = firstLinkedList.head;
+			var HeadOfSecondLinkedList = secondLinkedList.head;
 
-			while (firstHead != null || secondHead != null)
+			while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
 			{
-				linkedListOut.AddInTail(new Node(firstHead.value + secondHead.value));
-				firstHead = firstHead.next;
-				secondHead = secondHead.next;
+				ReturnLinkedList.AddInTail(new Node(HeadOfFirstLinkedList.value + HeadOfSecondLinkedList.value));
+				HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
+				HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
 			}
-			return linkedListOut;
+			return ReturnLinkedList;
 
 
 		}
 
 		public static bool TwoLinkedListsAreEqual(LinkedList firstLinkedList, LinkedList secondLinkedList)
 		{
-			var firstHead = firstLinkedList.head;
-			var secondHead = secondLinkedList.head;
+			var HeadOfFirstLinkedList = firstLinkedList.head;
+			var HeadOfSecondLinkedList = secondLinkedList.head;
 
-			while (firstHead != null || secondHead != null)
+			while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
 			{
-				if (firstHead.value != secondHead.value) return false;
-				firstHead = firstHead.next;
-				secondHead = secondHead.next;
+				if (HeadOfFirstLinkedList.value != HeadOfSecondLinkedList.value) return false;
+				HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
+				HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
 			}
 			return true;
 		}

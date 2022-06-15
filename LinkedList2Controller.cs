@@ -13,32 +13,32 @@ namespace CodeFuMonastery
 		{
 			if (firstLinkedList.Count() != secondLinkedList.Count()) return new LinkedList2();
 
-			var linkedListOut = new LinkedList2();
+			var ResultLinkedList = new LinkedList2(); // Более понятно будет, если назвать переменную Result а не Out.
 
-			var firstHead = firstLinkedList.head;
-			var secondHead = secondLinkedList.head;
+			var HeadOfFirstLinkedList = firstLinkedList.head; // Не первая голова, а голова первого списка.
+			var HeadOfSecondLinkedList = secondLinkedList.head; // Аналогично выше.
 
-			while (firstHead != null || secondHead != null)
+			while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
 			{
-				linkedListOut.AddInTail(new Node(firstHead.value + secondHead.value));
-				firstHead = firstHead.next;
-				secondHead = secondHead.next;
+				ResultLinkedList.AddInTail(new Node(HeadOfFirstLinkedList.value + HeadOfSecondLinkedList.value));
+				HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
+				HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
 			}
-			return linkedListOut;
+			return ResultLinkedList;
 
 
 		}
 
 		public static bool TwoLinkedListsAreEqual(LinkedList2 firstLinkedList, LinkedList2 secondLinkedList)
 		{
-			var firstHead = firstLinkedList.head;
-			var secondHead = secondLinkedList.head;
+			var HeadOfFirstLinkedList = firstLinkedList.head;
+			var HeadOfSecondLinkedList = secondLinkedList.head;
 
-			while (firstHead != null || secondHead != null)
+			while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
 			{
-				if (firstHead.value != secondHead.value) return false;
-				firstHead = firstHead.next;
-				secondHead = secondHead.next;
+				if (HeadOfFirstLinkedList.value != HeadOfSecondLinkedList.value) return false;
+				HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
+				HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
 			}
 			return true;
 		}
