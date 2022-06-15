@@ -13,16 +13,18 @@ namespace CodeFuMonastery
 		{
 			if (firstLinkedList.Count() != secondLinkedList.Count()) return new LinkedList2();
 
-			var ResultLinkedList = new LinkedList2(); // Более понятно будет, если назвать переменную Result а не Out.
+			var ResultLinkedList = new LinkedList2();
+			// Результат связного списка.
 
-			var HeadOfFirstLinkedList = firstLinkedList.head; // Не первая голова, а голова первого списка.
-			var HeadOfSecondLinkedList = secondLinkedList.head; // Аналогично выше.
+			var HeadNodeOfFirstLinkedList = firstLinkedList.head;
+			// Головная нода первого связного списка.
+			var HeadNodeOfSecondLinkedList = secondLinkedList.head;
 
-			while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
+			while (HeadNodeOfFirstLinkedList != null || HeadNodeOfSecondLinkedList != null)
 			{
-				ResultLinkedList.AddInTail(new Node(HeadOfFirstLinkedList.value + HeadOfSecondLinkedList.value));
-				HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
-				HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
+				ResultLinkedList.AddInTail(new Node(HeadNodeOfFirstLinkedList.value + HeadNodeOfSecondLinkedList.value));
+				HeadNodeOfFirstLinkedList = HeadNodeOfFirstLinkedList.next;
+				HeadNodeOfSecondLinkedList = HeadNodeOfSecondLinkedList.next;
 			}
 			return ResultLinkedList;
 

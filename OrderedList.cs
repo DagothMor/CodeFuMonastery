@@ -49,53 +49,54 @@ namespace AlgorithmsDataStructures
 
 		public void Add(T value)
 		{
-			var newNode = new Node<T>(value);
+			var nodeWithInputedValue = new Node<T>(value);
+			// Узел с входящим значением.
 			var node = head;
 			int isAscending = _ascending ? 1 : -1;
 			if (node == null)
 			{
-				head = newNode;
+				head = nodeWithInputedValue;
 				head.next = null;
 				head.prev = null;
-				tail = newNode;
+				tail = nodeWithInputedValue;
 				return;
 			}
-				if (Compare(head.value, newNode.value) == isAscending)
+				if (Compare(head.value, nodeWithInputedValue.value) == isAscending)
 				{
-					newNode.next = node;
-					node.prev = newNode;
-					head = newNode;
+					nodeWithInputedValue.next = node;
+					node.prev = nodeWithInputedValue;
+					head = nodeWithInputedValue;
 					return;
 				}
 				while (node.next != null)
 				{
-					if (Compare(node.value, newNode.value) == isAscending)
+					if (Compare(node.value, nodeWithInputedValue.value) == isAscending)
 					{
-						newNode.prev = node.prev;
-						newNode.next = node;
-						node.prev.next = newNode;
-						node.prev = newNode;
+						nodeWithInputedValue.prev = node.prev;
+						nodeWithInputedValue.next = node;
+						node.prev.next = nodeWithInputedValue;
+						node.prev = nodeWithInputedValue;
 						return;
 					}
 					node = node.next;
 				}
-				if (Compare(node.value, newNode.value) == isAscending)
+				if (Compare(node.value, nodeWithInputedValue.value) == isAscending)
 				{
-					newNode.prev = node.prev;
-					newNode.next = node;
-					node.prev.next = newNode;
-					node.prev = newNode;
+					nodeWithInputedValue.prev = node.prev;
+					nodeWithInputedValue.next = node;
+					node.prev.next = nodeWithInputedValue;
+					node.prev = nodeWithInputedValue;
 					return;
 				}
-				tail.next = newNode;
-				newNode.prev = tail;
-				tail = newNode;
+				tail.next = nodeWithInputedValue;
+				nodeWithInputedValue.prev = tail;
+				tail = nodeWithInputedValue;
 				return;
 		}
 
 		public Node<T> Find(T val)
 		{
-			var bufferNode = new Node<T>(val);
+			var nodeWithInputedValue = new Node<T>(val);
 			if (this._ascending == true && Compare(head.value, val) == 1) return null;
 			if (this._ascending == true && Compare(tail.value, val) == -1) return null;
 			if (this._ascending == false && Compare(head.value, val) == -1) return null;
@@ -104,12 +105,13 @@ namespace AlgorithmsDataStructures
 			return node;
 		}
 
-		public void Delete(T val)
+		public void Delete(T ValueToDelete)
+		// Значение для удаления.
 		{
 			var node = head;
 			while (node != null)
 			{
-				if (Compare(node.value, val) == 0)
+				if (Compare(node.value, ValueToDelete) == 0)
 				{
 					if (node.prev == null)
 					{
@@ -156,82 +158,88 @@ namespace AlgorithmsDataStructures
 
 		List<Node<T>> GetAll()
 		{
-			List<Node<T>> r = new List<Node<T>>();
+			List<Node<T>> resultListOfNodes = new List<Node<T>>();
+			// результат в виде списка нод.
 			Node<T> node = head;
 			while (node != null)
 			{
-				r.Add(node);
+				resultListOfNodes.Add(node);
 				node = node.next;
 			}
-			return r;
+			return resultListOfNodes;
 		}
-		private int FirstValueIsBiggerByLexicographicOrder(string firstVal, string secondVal)
+		private int FirstValueIsBiggerByLexicographicOrder(string firstValue, string secondValue)
 		{
 			var isAscending = this._ascending?1:-1;
 			if (this._ascending)
 			{
-				if (firstVal == secondVal) return 0;
-				if (firstVal.Length > secondVal.Length)
+				if (firstValue == secondValue) return 0;
+				if (firstValue.Length > secondValue.Length)
 				{
-					for (int i = 0; i < secondVal.Length; i++)
+					for (int i = 0; i < secondValue.Length; i++)
 					{
-						if (secondVal[i] == firstVal[i]) continue;
-						if (secondVal[i] < firstVal[i]) return 1;
-						if (secondVal[i] > firstVal[i]) return -1;
+						if (secondValue[i] == firstValue[i]) continue;
+						if (secondValue[i] < firstValue[i]) return 1;
+						if (secondValue[i] > firstValue[i]) return -1;
 					}
 					return 1;
 				}
-				for (int i = 0; i < firstVal.Length; i++)
+				for (int i = 0; i < firstValue.Length; i++)
 				{
-					if (secondVal[i] == firstVal[i]) continue;
-					if (secondVal[i] < firstVal[i]) return 1;
-					if (secondVal[i] > firstVal[i]) return -1;
+					if (secondValue[i] == firstValue[i]) continue;
+					if (secondValue[i] < firstValue[i]) return 1;
+					if (secondValue[i] > firstValue[i]) return -1;
 				}
 				return -1;
 			}
 			else 
 			{
-				if (firstVal == secondVal) return 0;
-				if (firstVal.Length > secondVal.Length)
+				if (firstValue == secondValue) return 0;
+				if (firstValue.Length > secondValue.Length)
 				{
-					for (int i = 0; i < secondVal.Length; i++)
+					for (int i = 0; i < secondValue.Length; i++)
 					{
-						if (secondVal[i] == firstVal[i]) continue;
-						if (secondVal[i] < firstVal[i]) return 1;
-						if (secondVal[i] > firstVal[i]) return -1;
+						if (secondValue[i] == firstValue[i]) continue;
+						if (secondValue[i] < firstValue[i]) return 1;
+						if (secondValue[i] > firstValue[i]) return -1;
 					}
 					return 1;
 				}
-				for (int i = 0; i < firstVal.Length; i++)
+				for (int i = 0; i < firstValue.Length; i++)
 				{
-					if (secondVal[i] == firstVal[i]) continue;
-					if (secondVal[i] < firstVal[i]) return 1;
-					if (secondVal[i] > firstVal[i]) return -1;
+					if (secondValue[i] == firstValue[i]) continue;
+					if (secondValue[i] < firstValue[i]) return 1;
+					if (secondValue[i] > firstValue[i]) return -1;
 				}
 				return -1;
 			}
 		}
 
-		private Node<T> BinarySearch(List<Node<T>> list, T val)
+		private Node<T> BinarySearch(List<Node<T>> inputedListOfNodes, T inputedValue)
+		// Искомое значение.
 		{
-			if (list.Count == 0) return null;
-			var first = 0;
-			var last = list.Count() - 1;
-			int middlepoint;
+			if (inputedListOfNodes.Count == 0) return null;
+			var startPointOfAreaSearch = 0;
+			// начальная точка площади поиска
+			var endPointOfAreaSearch = inputedListOfNodes.Count() - 1;
+			// конечная точка площади поиска
+			int middlePointOfAreaSearch;
+			// медианная точка площади поиска
 			int isAscending = this._ascending ? 1 : -1;
 
-			int compareState;
+			int CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue;
+			// Сравнение значения медианной точки площади поиска во входящем списке с искомым значением.
 
-			while (first <= last)
+			while (startPointOfAreaSearch <= endPointOfAreaSearch)
 			{
-				middlepoint = (int)((first + last) / 2);
-				compareState = Compare(list[middlepoint].value, val);
-				if (compareState == 0)
+				middlePointOfAreaSearch = (int)((startPointOfAreaSearch + endPointOfAreaSearch) / 2);
+				CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue = Compare(inputedListOfNodes[middlePointOfAreaSearch].value, inputedValue);
+				if (CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue == 0)
 				{
-					return list[middlepoint];
+					return inputedListOfNodes[middlePointOfAreaSearch];
 				}
-				if (compareState == isAscending) last = middlepoint - 1;
-				if (compareState == -isAscending) first = middlepoint + 1;
+				if (CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue == isAscending) endPointOfAreaSearch = middlePointOfAreaSearch - 1;
+				if (CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue == -isAscending) startPointOfAreaSearch = middlePointOfAreaSearch + 1;
 			}
 			return null;
 		}

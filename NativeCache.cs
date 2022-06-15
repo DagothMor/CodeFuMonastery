@@ -25,7 +25,8 @@ namespace AlgorithmsDataStructures
         public int HashFun(string key)
         {
             int slotIndex = 0;
-            foreach (var letterInKey in key) // Будет удобно читать взаимодействие буквы в ключе с последующей внутренней логикой.
+            foreach (var letterInKey in key)
+                // Буква в ключе.
             {
                 slotIndex += ((byte)letterInKey);
             }
@@ -34,18 +35,18 @@ namespace AlgorithmsDataStructures
 
         public bool IsKey(string key)
         {
-            var index = HashFun(key);
-            var firstValue = slots[index];
+            var slotIndex = HashFun(key);
+            var firstValue = slots[slotIndex];
             var bufferValue = firstValue;
             if (bufferValue == key) return true;
             do
             {
-                index += 1;
-                while (index >= slots.Length)
+                slotIndex += 1;
+                while (slotIndex >= slots.Length)
                 {
-                    index -= slots.Length;
+                    slotIndex -= slots.Length;
                 }
-                bufferValue = slots[index];
+                bufferValue = slots[slotIndex];
                 if (bufferValue == default) return false;
                 if (bufferValue == key) return true;
             }
@@ -57,64 +58,66 @@ namespace AlgorithmsDataStructures
 
         public int FindLessHits()
         {
-            int index = 0;
+            int slotIndex = 0;
             int buffer = hits[0];
             for (int i = 0; i < hits.Length; i++)
             {
                 if (hits[i] < buffer)
                 {
                     buffer = hits[i];
-                    index = i;
+                    slotIndex = i;
                 }
             }
-            return index;
+            return slotIndex;
         }
 
-        public void Put(string key, T value)
+        public void Put(string key, T inputValue)
+            // Входящее значение.
         {
-            var index = HashFun(key);
-            var firstValue = slots[index];
+            var slotIndex = HashFun(key);
+            // Индекс слота.
+            var firstValue = slots[slotIndex];
             var bufferValue = firstValue;
             if (bufferValue == key)
             {
-                values[index] = value;
-                hits[index]++;
+                values[slotIndex] = inputValue; // не поймешь какое значение, теперь яснее что ячейке мы присваиваем имено входящее.
+                hits[slotIndex]++;
                 return;
             }
             if (bufferValue == default)
             {
-                values[index] = value;
-                slots[index] = key;
-                hits[index] = 0;
+                values[slotIndex] = inputValue;
+                slots[slotIndex] = key;
+                hits[slotIndex] = 0;
                 return;
             }
             do
             {
-                index += 1;
-                while (index >= slots.Length)
+                slotIndex += 1;
+                while (slotIndex >= slots.Length)
                 {
-                    index -= slots.Length;
+                    slotIndex -= slots.Length;
                 }
-                bufferValue = slots[index];
+                bufferValue = slots[slotIndex];
                 if (bufferValue == key)
                 {
-                    values[index] = value;
-                    hits[index]++;
+                    values[slotIndex] = inputValue;
+                    hits[slotIndex]++;
                     return;
                 }
                 if (bufferValue == default)
                 {
-                    values[index] = value;
-                    slots[index] = key;
-                    hits[index] = 0;
+                    values[slotIndex] = inputValue;
+                    slots[slotIndex] = key;
+                    hits[slotIndex] = 0;
                     return;
                 }
-                hits[index]++;
+                hits[slotIndex]++;
             }
             while (bufferValue != firstValue);
             var deleteIndex = FindLessHits();
             slots[deleteIndex] = key;
-            values[deleteIndex] = value;
+            values[deleteIndex] = inputValue;
             hits[deleteIndex] = 0;
         }
 

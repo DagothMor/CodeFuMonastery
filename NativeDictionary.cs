@@ -10,37 +10,38 @@ namespace AlgorithmsDataStructures
         public string[] slots;
         public T[] values;
 
-        public NativeDictionary(int sz)
+        public NativeDictionary(int size)
+        // размер.
         {
-            size = sz;
+            this.size = size;
             slots = new string[size];
             values = new T[size];
         }
 
         public int HashFun(string key)
         {
-            int index = 0;
+            int slotIndex = 0;
             foreach (var item in key)
             {
-                index += ((byte)item);
+                slotIndex += ((byte)item);
             }
-            return index % size;
+            return slotIndex % size;
         }
 
         public bool IsKey(string key)
         {
-            var index = HashFun(key);
-            var firstValue = slots[index];
+            var slotIndex = HashFun(key);
+            var firstValue = slots[slotIndex];
             var bufferValue = firstValue;
             if (bufferValue == key) return true;
             do
             {
-                index += 1;
-                while (index >= slots.Length)
+                slotIndex++;
+                while (slotIndex >= slots.Length)
                 {
-                    index -= slots.Length;
+                    slotIndex -= slots.Length;
                 }
-                bufferValue = slots[index];
+                bufferValue = slots[slotIndex];
                 if (bufferValue == default) return false;
                 if (bufferValue == key) return true;
             }
@@ -50,63 +51,64 @@ namespace AlgorithmsDataStructures
 
         }
 
-        public void Put(string key, T value)
+        public void Put(string key, T inputValue)
         {
-            var index = HashFun(key);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
+            var slotIndex = HashFun(key);
+            var firstValueOfSlots = slots[slotIndex]; // первое значение чего? поправил.
+            var bufferValue = firstValueOfSlots;
             if (bufferValue == key)
             {
-                values[index] = value;
+                values[slotIndex] = inputValue;
                 return;
             }
             if (bufferValue == default) {
-                values[index] = value;
-                slots[index] = key;
+                values[slotIndex] = inputValue;
+                slots[slotIndex] = key;
                 return;
             } 
             do
             {
-                index += 1;
-                while (index >= slots.Length)
+                slotIndex++;
+                while (slotIndex >= slots.Length)
                 {
-                    index -= slots.Length;
+                    slotIndex -= slots.Length;
                 }
-                bufferValue = slots[index];
+                bufferValue = slots[slotIndex];
                 if (bufferValue == key)
                 {
-                    values[index] = value;
+                    values[slotIndex] = inputValue;
                     return;
                 }
                 if (bufferValue == default)
                 {
-                    values[index] = value;
-                    slots[index] = key;
+                    values[slotIndex] = inputValue;
+                    slots[slotIndex] = key;
                     return;
                 }
             }
-            while (bufferValue != firstValue);
+            while (bufferValue != firstValueOfSlots);
         }
 
         public T Get(string key)
         {
-            var index = HashFun(key);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
-            if (bufferValue == key) return values[index];
+            var slotIndex = HashFun(key);
+            var firstValueOfSlots = slots[slotIndex];
+            // Первое значение слота.
+            var bufferValue = firstValueOfSlots;
+            if (bufferValue == key) return values[slotIndex];
             if (bufferValue == default) return default;
             do
             {
-                index += 1;
-                while (index >= slots.Length)
+                slotIndex++;
+                while (slotIndex >= slots.Length)
                 {
-                    index -= slots.Length;
+                    slotIndex -= slots.Length;
                 }
-                bufferValue = slots[index];
+                bufferValue = slots[slotIndex];
                 if (bufferValue == default) return default;
-                if (bufferValue == key) return values[index];
+                if (bufferValue == key) return values[slotIndex];
             }
-            while (bufferValue != firstValue);
+            while (bufferValue != firstValueOfSlots);
 
             return default;
         }
