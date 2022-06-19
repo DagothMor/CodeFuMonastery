@@ -16,15 +16,17 @@ namespace CodeFuMonastery
 			var ResultLinkedList = new LinkedList2();
 			// Результат связного списка.
 
-			var HeadNodeOfFirstLinkedList = firstLinkedList.head;
+			// 6.4 было HeadNodeOfFirstLinkedList стало HeadOfFirstLinkedList
 			// Головная нода первого связного списка.
-			var HeadNodeOfSecondLinkedList = secondLinkedList.head;
+			var HeadOfFirstLinkedList = firstLinkedList.head;
+			
+			var HeadOfSecondLinkedList = secondLinkedList.head;
 
-			while (HeadNodeOfFirstLinkedList != null || HeadNodeOfSecondLinkedList != null)
+			while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
 			{
-				ResultLinkedList.AddInTail(new Node(HeadNodeOfFirstLinkedList.value + HeadNodeOfSecondLinkedList.value));
-				HeadNodeOfFirstLinkedList = HeadNodeOfFirstLinkedList.next;
-				HeadNodeOfSecondLinkedList = HeadNodeOfSecondLinkedList.next;
+				ResultLinkedList.AddInTail(new Node(HeadOfFirstLinkedList.value + HeadOfSecondLinkedList.value));
+				HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
+				HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
 			}
 			return ResultLinkedList;
 
