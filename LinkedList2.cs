@@ -68,6 +68,8 @@ namespace AlgorithmsDataStructures
 
 		public bool Remove(int _value)
 		{
+			// 7.2 добавил булеву success.
+			var success = false;
 			Node node = head;
 			while (node != null)
 			{
@@ -79,7 +81,8 @@ namespace AlgorithmsDataStructures
 						node = head;
 						if (node == null) tail = null;
 						else node.prev = null;
-						return true;
+						success = true;
+						return success;
 					}
 					if (node.next != null)
 					{
@@ -91,11 +94,12 @@ namespace AlgorithmsDataStructures
 						node.prev.next = null;
 						tail = node.prev;
 					}
-					return true;
+					success=true;
+					return success;
 				}
 				node = node.next;
 			}
-			return false;
+			return success;
 		}
 
 		public void RemoveAll(int _value)

@@ -8,18 +8,22 @@ namespace CodeFuMonastery
         public static bool BalancedRoundBrackets(string stringin)
         {
             var stack = new AlgorithmsDataStructures.Stack<char>();
+            // 7.1 stackIsEmpty.
+            var stackIsEmpty = true;
             foreach (var bracket in stringin)
             {
                 if (bracket == ')')
                 {
-                    if (stack.Size() == 0)
+                    stackIsEmpty = stack.Size() == 0;
+                    if (stackIsEmpty)
                         return false;
                     stack.Pop();
                     continue;
                 }
                 stack.Push(bracket);
             }
-            return stack.Size() == 0;
+            stackIsEmpty = stack.Size() == 0;
+            return stackIsEmpty;
         }
 
         public static float PostfixNotationOfAnExpressionThroughString(string stringin)
