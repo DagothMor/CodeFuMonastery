@@ -37,8 +37,8 @@ namespace AlgorithmsDataStructures
         {
             var slotIndex = HashFun(key);
             var firstValue = slots[slotIndex];
-            var bufferValue = firstValue;
-            if (bufferValue == key) return true;
+            var slotByIndex = firstValue;
+            if (slotByIndex == key) return true;
             do
             {
                 slotIndex += 1;
@@ -46,11 +46,11 @@ namespace AlgorithmsDataStructures
                 {
                     slotIndex -= slots.Length;
                 }
-                bufferValue = slots[slotIndex];
-                if (bufferValue == default) return false;
-                if (bufferValue == key) return true;
+                slotByIndex = slots[slotIndex];
+                if (slotByIndex == default) return false;
+                if (slotByIndex == key) return true;
             }
-            while (bufferValue != firstValue);
+            while (slotByIndex != firstValue);
 
             return false;
 
@@ -59,6 +59,7 @@ namespace AlgorithmsDataStructures
         public int FindLessHits()
         {
             int slotIndex = 0;
+            // 7.5 было Buffer, стало hitsLessValue.
             int buffer = hits[0];
             for (int i = 0; i < hits.Length; i++)
             {

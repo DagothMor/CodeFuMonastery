@@ -170,25 +170,26 @@ namespace AlgorithmsDataStructures
 		}
 		private int FirstValueIsBiggerByLexicographicOrder(string firstValue, string secondValue)
 		{
+			// 7.3 Вместо i нагляднее всего будет использовать charIndex
 			var isAscending = this._ascending?1:-1;
 			if (this._ascending)
 			{
 				if (firstValue == secondValue) return 0;
 				if (firstValue.Length > secondValue.Length)
 				{
-					for (int i = 0; i < secondValue.Length; i++)
+					for (int charIndex = 0; charIndex < secondValue.Length; charIndex++)
 					{
-						if (secondValue[i] == firstValue[i]) continue;
-						if (secondValue[i] < firstValue[i]) return 1;
-						if (secondValue[i] > firstValue[i]) return -1;
+						if (secondValue[charIndex] == firstValue[charIndex]) continue;
+						if (secondValue[charIndex] < firstValue[charIndex]) return 1;
+						if (secondValue[charIndex] > firstValue[charIndex]) return -1;
 					}
 					return 1;
 				}
-				for (int i = 0; i < firstValue.Length; i++)
+				for (int charIndex = 0; charIndex < firstValue.Length; charIndex++)
 				{
-					if (secondValue[i] == firstValue[i]) continue;
-					if (secondValue[i] < firstValue[i]) return 1;
-					if (secondValue[i] > firstValue[i]) return -1;
+					if (secondValue[charIndex] == firstValue[charIndex]) continue;
+					if (secondValue[charIndex] < firstValue[charIndex]) return 1;
+					if (secondValue[charIndex] > firstValue[charIndex]) return -1;
 				}
 				return -1;
 			}
@@ -197,19 +198,19 @@ namespace AlgorithmsDataStructures
 				if (firstValue == secondValue) return 0;
 				if (firstValue.Length > secondValue.Length)
 				{
-					for (int i = 0; i < secondValue.Length; i++)
+					for (int charIndex = 0; charIndex < secondValue.Length; charIndex++)
 					{
-						if (secondValue[i] == firstValue[i]) continue;
-						if (secondValue[i] < firstValue[i]) return 1;
-						if (secondValue[i] > firstValue[i]) return -1;
+						if (secondValue[charIndex] == firstValue[charIndex]) continue;
+						if (secondValue[charIndex] < firstValue[charIndex]) return 1;
+						if (secondValue[charIndex] > firstValue[charIndex]) return -1;
 					}
 					return 1;
 				}
-				for (int i = 0; i < firstValue.Length; i++)
+				for (int charIndex = 0; charIndex < firstValue.Length; charIndex++)
 				{
-					if (secondValue[i] == firstValue[i]) continue;
-					if (secondValue[i] < firstValue[i]) return 1;
-					if (secondValue[i] > firstValue[i]) return -1;
+					if (secondValue[charIndex] == firstValue[charIndex]) continue;
+					if (secondValue[charIndex] < firstValue[charIndex]) return 1;
+					if (secondValue[charIndex] > firstValue[charIndex]) return -1;
 				}
 				return -1;
 			}
@@ -220,9 +221,9 @@ namespace AlgorithmsDataStructures
 		{
 			if (inputedListOfNodes.Count == 0) return null;
 			var startPointOfAreaSearch = 0;
-			// начальная точка площади поиска
+			// 7.4 начальная точка площади поиска
 			var endPointOfAreaSearch = inputedListOfNodes.Count() - 1;
-			// конечная точка площади поиска
+			// 7.4 конечная точка площади поиска
 			int middlePointOfAreaSearch;
 			// медианная точка площади поиска
 			int isAscending = this._ascending ? 1 : -1;

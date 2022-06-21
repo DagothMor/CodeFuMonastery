@@ -32,8 +32,8 @@ namespace AlgorithmsDataStructures
         {
             var slotIndex = HashFun(key);
             var firstValue = slots[slotIndex];
-            var bufferValue = firstValue;
-            if (bufferValue == key) return true;
+            var slotByIndex = firstValue;
+            if (slotByIndex == key) return true;
             do
             {
                 slotIndex++;
@@ -41,11 +41,11 @@ namespace AlgorithmsDataStructures
                 {
                     slotIndex -= slots.Length;
                 }
-                bufferValue = slots[slotIndex];
-                if (bufferValue == default) return false;
-                if (bufferValue == key) return true;
+                slotByIndex = slots[slotIndex];
+                if (slotByIndex == default) return false;
+                if (slotByIndex == key) return true;
             }
-            while (bufferValue != firstValue);
+            while (slotByIndex != firstValue);
 
             return false;
 
@@ -55,13 +55,13 @@ namespace AlgorithmsDataStructures
         {
             var slotIndex = HashFun(key);
             var firstValueOfSlots = slots[slotIndex]; // первое значение чего? поправил.
-            var bufferValue = firstValueOfSlots;
-            if (bufferValue == key)
+            var slotByIndex = firstValueOfSlots;
+            if (slotByIndex == key)
             {
                 values[slotIndex] = inputValue;
                 return;
             }
-            if (bufferValue == default) {
+            if (slotByIndex == default) {
                 values[slotIndex] = inputValue;
                 slots[slotIndex] = key;
                 return;
@@ -73,20 +73,20 @@ namespace AlgorithmsDataStructures
                 {
                     slotIndex -= slots.Length;
                 }
-                bufferValue = slots[slotIndex];
-                if (bufferValue == key)
+                slotByIndex = slots[slotIndex];
+                if (slotByIndex == key)
                 {
                     values[slotIndex] = inputValue;
                     return;
                 }
-                if (bufferValue == default)
+                if (slotByIndex == default)
                 {
                     values[slotIndex] = inputValue;
                     slots[slotIndex] = key;
                     return;
                 }
             }
-            while (bufferValue != firstValueOfSlots);
+            while (slotByIndex != firstValueOfSlots);
         }
 
         public T Get(string key)
@@ -94,9 +94,9 @@ namespace AlgorithmsDataStructures
             var slotIndex = HashFun(key);
             var firstValueOfSlots = slots[slotIndex];
             // Первое значение слота.
-            var bufferValue = firstValueOfSlots;
-            if (bufferValue == key) return values[slotIndex];
-            if (bufferValue == default) return default;
+            var slotByIndex = firstValueOfSlots;
+            if (slotByIndex == key) return values[slotIndex];
+            if (slotByIndex == default) return default;
             do
             {
                 slotIndex++;
@@ -104,11 +104,11 @@ namespace AlgorithmsDataStructures
                 {
                     slotIndex -= slots.Length;
                 }
-                bufferValue = slots[slotIndex];
-                if (bufferValue == default) return default;
-                if (bufferValue == key) return values[slotIndex];
+                slotByIndex = slots[slotIndex];
+                if (slotByIndex == default) return default;
+                if (slotByIndex == key) return values[slotIndex];
             }
-            while (bufferValue != firstValueOfSlots);
+            while (slotByIndex != firstValueOfSlots);
 
             return default;
         }

@@ -25,10 +25,12 @@ namespace AlgorithmsDataStructures
         {
             if (EqualityComparer<T>.Default.Equals(value, default(T))) return -1;
             int index = HashFun(value);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
+            // 7.5 было firstValue стало ValueByFirstSlotIndex
+            var ValueByFirstSlotIndex = slots[index];
+            // 7.5 было bufferValue стало slotByIndex.
+            var slotByIndex = ValueByFirstSlotIndex;
             if (EqualityComparer<T>.Default.Equals(slots[index], default(T))) return index;
-            if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return -1;
+            if (EqualityComparer<T>.Default.Equals(slotByIndex, value)) return -1;
             do
             {
                 index += step;
@@ -36,11 +38,11 @@ namespace AlgorithmsDataStructures
                 {
                     index -= slots.Length;
                 }
-                bufferValue = slots[index];
-                if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) return index;
-                if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return -1;
+                slotByIndex = slots[index];
+                if (EqualityComparer<T>.Default.Equals(slotByIndex, default(T))) return index;
+                if (EqualityComparer<T>.Default.Equals(slotByIndex, value)) return -1;
             }
-            while (!EqualityComparer<T>.Default.Equals(bufferValue, firstValue));
+            while (!EqualityComparer<T>.Default.Equals(slotByIndex, ValueByFirstSlotIndex));
             return -1;
         }
         public void Put(T value)
@@ -62,9 +64,9 @@ namespace AlgorithmsDataStructures
         public bool Get(T value)
         {
             int index = HashFun(value);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
-            if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return true;
+            var ValueByFirstSlotIndex = slots[index];
+            var slotByIndex = ValueByFirstSlotIndex;
+            if (EqualityComparer<T>.Default.Equals(slotByIndex, value)) return true;
             do
             {
                 index += step;
@@ -72,12 +74,12 @@ namespace AlgorithmsDataStructures
                 {
                     index -= slots.Length;
                 }
-                bufferValue = slots[index];
-                if (EqualityComparer<T>.Default.Equals(bufferValue, value)) return true;
-                if (EqualityComparer<T>.Default.Equals(bufferValue, default(T))) return false;
+                slotByIndex = slots[index];
+                if (EqualityComparer<T>.Default.Equals(slotByIndex, value)) return true;
+                if (EqualityComparer<T>.Default.Equals(slotByIndex, default(T))) return false;
 
             }
-            while (!EqualityComparer<T>.Default.Equals(bufferValue, firstValue));
+            while (!EqualityComparer<T>.Default.Equals(slotByIndex, ValueByFirstSlotIndex));
 
             return false;
         }
@@ -85,10 +87,10 @@ namespace AlgorithmsDataStructures
         {
             if (EqualityComparer<T>.Default.Equals(value, default(T))) return false;
             int index = HashFun(value);
-            var firstValue = slots[index];
-            var bufferValue = firstValue;
-            if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
-            if (EqualityComparer<T>.Default.Equals(bufferValue, default(T)))
+            var ValueByFirstSlotIndex = slots[index];
+            var slotByIndex = ValueByFirstSlotIndex;
+            if (EqualityComparer<T>.Default.Equals(slotByIndex, value)) { slots[index] = default(T); return true; }
+            if (EqualityComparer<T>.Default.Equals(slotByIndex, default(T)))
             {
                 var startPos = index;
                 do
@@ -98,8 +100,8 @@ namespace AlgorithmsDataStructures
                     {
                         index -= slots.Length;
                     }
-                    bufferValue = slots[index];
-                    if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
+                    slotByIndex = slots[index];
+                    if (EqualityComparer<T>.Default.Equals(slotByIndex, value)) { slots[index] = default(T); return true; }
 
                 }
                 while (!index.Equals(startPos));
@@ -112,10 +114,10 @@ namespace AlgorithmsDataStructures
                 {
                     index -= slots.Length;
                 }
-                bufferValue = slots[index];
-                if (EqualityComparer<T>.Default.Equals(bufferValue, value)) { slots[index] = default(T); return true; }
+                slotByIndex = slots[index];
+                if (EqualityComparer<T>.Default.Equals(slotByIndex, value)) { slots[index] = default(T); return true; }
             }
-            while (!EqualityComparer<T>.Default.Equals(bufferValue, firstValue));
+            while (!EqualityComparer<T>.Default.Equals(slotByIndex, ValueByFirstSlotIndex));
 
             return false;
         }
