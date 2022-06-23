@@ -216,31 +216,32 @@ namespace AlgorithmsDataStructures
 			}
 		}
 
-		private Node<T> BinarySearch(List<Node<T>> inputedListOfNodes, T inputedValue)
+		
+		private Node<T> BinarySearch(List<Node<T>> inputedList, T inputedValue)
 		// Искомое значение.
 		{
-			if (inputedListOfNodes.Count == 0) return null;
-			var startPointOfAreaSearch = 0;
+			if (inputedList.Count == 0) return null;
+			var startPoint = 0;
 			// 7.4 начальная точка площади поиска
-			var endPointOfAreaSearch = inputedListOfNodes.Count() - 1;
+			var endPoint= inputedList.Count() - 1;
 			// 7.4 конечная точка площади поиска
-			int middlePointOfAreaSearch;
+			int middlePoint;
 			// медианная точка площади поиска
 			int isAscending = this._ascending ? 1 : -1;
 
-			int CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue;
+			int MiddlePointEqualsInputedValue;
 			// Сравнение значения медианной точки площади поиска во входящем списке с искомым значением.
 
-			while (startPointOfAreaSearch <= endPointOfAreaSearch)
+			while (startPoint <= endPoint)
 			{
-				middlePointOfAreaSearch = (int)((startPointOfAreaSearch + endPointOfAreaSearch) / 2);
-				CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue = Compare(inputedListOfNodes[middlePointOfAreaSearch].value, inputedValue);
-				if (CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue == 0)
+				middlePoint = (int)((startPoint + endPoint) / 2);
+				MiddlePointEqualsInputedValue = Compare(inputedList[middlePoint].value, inputedValue);
+				if (MiddlePointEqualsInputedValue == 0)
 				{
-					return inputedListOfNodes[middlePointOfAreaSearch];
+					return inputedList[middlePoint];
 				}
-				if (CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue == isAscending) endPointOfAreaSearch = middlePointOfAreaSearch - 1;
-				if (CompareMiddlePointOfAreaSearchOfInputedListWithInputedValue == -isAscending) startPointOfAreaSearch = middlePointOfAreaSearch + 1;
+				if (MiddlePointEqualsInputedValue == isAscending) endPoint = middlePoint - 1;
+				if (MiddlePointEqualsInputedValue == -isAscending) startPoint = middlePoint + 1;
 			}
 			return null;
 		}

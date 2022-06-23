@@ -13,22 +13,22 @@ namespace CodeFuMonastery
         {
             if (firstLinkedList.Count() != secondLinkedList.Count()) return new LinkedList2();
 
-            var ResultLinkedList = new LinkedList2();
+            var result = new LinkedList2();
             // Результат связного списка.
 
             // 6.4 было HeadNodeOfFirstLinkedList стало HeadOfFirstLinkedList
             // Головная нода первого связного списка.
-            var HeadOfFirstLinkedList = firstLinkedList.head;
+            var headOfFirst = firstLinkedList.head;
 
-            var HeadOfSecondLinkedList = secondLinkedList.head;
+            var headOfSecond = secondLinkedList.head;
 
-            while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
+            while (headOfFirst != null || headOfSecond != null)
             {
-                ResultLinkedList.AddInTail(new Node(HeadOfFirstLinkedList.value + HeadOfSecondLinkedList.value));
-                HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
-                HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
+                result.AddInTail(new Node(headOfFirst.value + headOfSecond.value));
+                headOfFirst = headOfFirst.next;
+                headOfSecond = headOfSecond.next;
             }
-            return ResultLinkedList;
+            return result;
 
 
         }
@@ -37,18 +37,18 @@ namespace CodeFuMonastery
         {
             // 7.1 twoLinkedListsAreEqual Добавил переменную для удобочитаемости
             var twoLinkedListsAreEqual = true;
-            var HeadOfFirstLinkedList = firstLinkedList.head;
-            var HeadOfSecondLinkedList = secondLinkedList.head;
+            var headOfFirst = firstLinkedList.head;
+            var headOfSecond = secondLinkedList.head;
 
-            while (HeadOfFirstLinkedList != null || HeadOfSecondLinkedList != null)
+            while (headOfFirst != null || headOfSecond != null)
             {
-                if (HeadOfFirstLinkedList.value != HeadOfSecondLinkedList.value)
+                if (headOfFirst.value != headOfSecond.value)
                 {
                     twoLinkedListsAreEqual = false;
                     return twoLinkedListsAreEqual;
                 }
-                HeadOfFirstLinkedList = HeadOfFirstLinkedList.next;
-                HeadOfSecondLinkedList = HeadOfSecondLinkedList.next;
+                headOfFirst = headOfFirst.next;
+                headOfSecond = headOfSecond.next;
             }
             return twoLinkedListsAreEqual;
         }
