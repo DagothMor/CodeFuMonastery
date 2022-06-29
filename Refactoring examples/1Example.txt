@@ -1,0 +1,122 @@
+﻿```
+# 1
+/// <summary>  
+    /// Получить список кост центров документа PaymentDocument через id. 
+	/// Было GetCostCentreForReport стало GetCostCentresFromPaymentDocumentId
+    /// </summary>  
+    [Public, Remote(IsPure = true)]  
+    public string GetCostCentresFromPaymentDocumentId(int paymentDocumentId)
+# 2 
+/// <summary>  
+    /// Получить разницу сумм для отчета RealizedSavingsTendersReport  
+	/// Было GetEconomy стало GetAmountDifference
+    /// </summary>  
+    [Public, Remote(IsPure = true)]  
+    public double? GetAmountDifference(double? firstAmount, double? totalAmount)
+# 3
+/// <summary>  
+    /// Получить запись справочника Настройка комплекта документов контрагентов. 
+	/// Было GetSetUpDocument стало GetSetUpDocumentFromCompany
+    /// </summary>  
+    /// <param name="company">Vendor.Customer.ICompany</param>  
+    /// <returns></returns>  
+    [Public, Remote(IsPure = true)]  
+    public static SharedDirectory.ISetUpDocument GetSetUpDocumentFromCompany(Vendor.Customer.ICompany company)
+      
+    /// <summary>  
+    /// Получить запись справочника Настройка комплекта документов контрагентов.
+	/// Было GetSetUpDocument стало GetSetUpDocumentFromPerson
+    /// </summary>  
+    /// <param name="person">Vendor.Customer.IPerson</param>  
+    /// <returns></returns>  
+    [Public, Remote(IsPure = true)]  
+    public static SharedDirectory.ISetUpDocument GetSetUpDocumentFromPerson(Vendor.Customer.IPerson person)  
+    
+# 4 
+/// <summary>  
+    /// Получить форматированное имя пользователя в родительном падеже.
+	/// Было GetFormattedUserName стало GetFormattedUserNameInGenitive
+    /// </summary>  
+    /// <param name="userName">Имя пользователя.</param>  
+    /// <returns>Форматированное имя пользователя.</returns>  
+    public static string GetFormattedUserNameInGenitive(string userName)
+# 5
+/// <summary>
+	/// было Если текущий пользователь не система.
+    /// Стало Если текущий пользователь система. 
+	/// Было IfCurrentUserIsNotSystem
+	/// Стало IfCurrentUserIsSystem
+	/// Нужно избегать Not булевые.
+    /// </summary>  
+    /// <returns>Текущий пользователь система.</returns>  
+    [Public]  
+    public static bool IfCurrentUserIsSystem()
+	
+# 6
+    /// <summary>  
+    /// Обрезать путь до файла до 259 символов для полного пути и 220 символов до папки
+	/// Было TrimDocumentPath стало TrimDocumentPathToCertainNumberOfCharacters
+    /// </summary>  
+    /// <param name="path">Путь до файла или папки</param>  
+    /// <param name="isDirectory">Признак что переданный путь папка</param>  
+    /// <returns></returns>  
+    public string TrimDocumentPathToCertainNumberOfCharacters(string path, bool isDirectory)
+# 7 
+/// <summary>  
+    /// Получить вид документа по GUID
+	/// Было GetDocKind
+	/// Стало GetDocKindByGUID
+    /// </summary>  
+    /// <param name="extEntityID">GUID</param>  
+    /// <returns>DocumentKind</returns>  
+    [Remote(IsPure = true)]  
+    public static BaseVendor.Docflow.IDocumentKind GetDocKindByGUID(Guid extEntityID)
+# 8 
+/// <summary>  
+    /// Проверить замещение ответственного.  
+	/// Было CheckSubstitutionResponsible
+	/// Стало EmployeeIsReplaceACertainEmployee
+    /// </summary>  
+    /// <param name="responsible">Ответственный</param>  
+    /// <param name="employee">Сотрудник</param>  
+    /// <returns></returns>  
+    [Remote(IsPure = true)]  
+    public static bool EmployeeIsReplaceACertainEmployee(BaseVendor.Company.IEmployee responsible, BaseVendor.Company.IEmployee employee)
+# 9
+/// <summary>  
+    /// Проверить, является ли сотрудник ответственным в карточке Оранизация.
+	/// Было UserIsResponsible
+	/// Стало UserIsResponsibleInCompany
+    /// </summary>  
+    /// <param name="user">Пользователь</param>  
+    /// <param name="company">Организация</param>  
+    /// <returns>True если является, иначе False</returns>  
+    public bool UserIsResponsibleInCompany(IUser user, ICompany company)
+# 10
+/// <summary>  
+    /// Сравнить типы документов.  
+	/// Было IsEqualDoctmentTypes
+	/// Стало DocumentTypesAreEqual
+    /// </summary>  
+    /// <param name="documentType">Тип документа с типом System.Type</param>  
+    /// <param name="newDocumentType">Тип документа с типом IDocumentType</param>  
+    /// <returns>True если совпадают, иначе False</returns>  
+    private static bool DocumentTypesAreEqual(Type documentType, IDocumentType newDocumentType)
+# 11
+/// <summary>  
+    /// Получить сотрудника.
+	/// Было GetEmployee
+	/// Стало GetEmployeeByFirstAndLastName
+    /// </summary>  
+    /// <param name="firstName">Фамилия</param>  
+    /// <param name="lastName">Имя</param>  
+    public BaseVendor.Company.IEmployee GetEmployeeByFirstAndLastName(string firstName, string lastName)
+# 12
+/// <summary>  
+    /// Сформировать Имя на англ.
+	/// Было FillName
+	/// Стало FillEnglishName
+    /// </summary>  
+    /// <param name="contract">Текущий документ</param>  
+    public static void FillEnglishName(IContract contract)
+```
