@@ -1,0 +1,152 @@
+// Базовая шина для определенного типа пользователя.
+    public abstract class BasePipeLine
+    {
+        // Кэш пользователей.
+        private readonly IUsersCache _usersCache;
+        // Массив сценариев.
+        private BaseUseCase[] _useCases;
+
+        public BasePipeLine(IUsersCache usersCache)
+        {
+            _usersCache = usersCache;
+        }
+        // Обработка сообщений.
+        public void ProcessMessage(MessageDto message)
+        {
+            // получаем пользователя из кэша.
+            var user = _usersCache.GetUser(message.UserId);
+            // Проходимся по массиву зарегестрированных сценариев из нашей шины.
+            GoThroughUseCases(message, user.State);
+        }
+
+        // Зарегистрировать массив сценариев.
+        public void RegisterUseCases(params BaseUseCase[] useCases)
+        {
+            _useCases = useCases;
+        }
+
+        /// <summary>
+        /// Проходим по массиву сценариев до тех пор пока в одном из них не сработает сценарий и не вернет значение true
+        /// только после получения положительного результата, мы прекращаем дальнейшую обработку.
+        /// </summary>
+        /// <param name="message">Сообщение.</param>
+        /// <param name="userState">Состояние пользователя.</param>
+        private void GoThroughUseCases(MessageDto message, string userState)
+        {
+            foreach (var useCase in _useCases)
+            {
+                if (useCase.TryProcessMessage(message, userState))
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+     public class AdminPipeline : BasePipeLine
+    {
+        public AdminPipeline(IUsersCache usersCache) : base(usersCache)
+        {
+        }
+    }
+
+    public abstract class BaseUseCase
+    {
+        protected readonly ITelegramBotClient TelegramBotClient;
+        protected readonly IUsersCache UsersCache;
+        protected readonly IOrderRepository OrderRepository;
+
+        public BaseUseCase(ITelegramBotClient telegramBotClient,IUsersCache usersCache,IOrderRepository orderRepository)
+        {
+            TelegramBotClient = telegramBotClient;
+            UsersCache = usersCache;
+            OrderRepository = orderRepository;
+        }
+        // Отправить пользователю сообщение.
+        public void SendAnswer(string answer, MessageDto message)
+        {
+            TelegramBotClient.SendTextMessageAsync(
+                chatId: message.ChatId,
+                text: answer
+            ).Wait();
+        }
+        // Отправить пользователю сообщение.
+        public void SendAnswerAndDeleteKeyboard(string answer, MessageDto message, ReplyKeyboardRemove remove)
+        {
+           TelegramBotClient.SendTextMessageAsync(
+                chatId: message.ChatId,
+                text: answer,
+                replyMarkup: remove
+            );
+        }
+        // Отправить пользователю сообщение и настройку кнопок.
+        public void SendAnswer(string answer, MessageDto message, ReplyKeyboardMarkup keyboard)
+        {
+            TelegramBotClient.SendTextMessageAsync(
+                chatId: message.ChatId,
+                text: answer,
+                replyMarkup: keyboard
+            ).Wait();
+        }
+        // Обработать сообщение.
+        public abstract bool TryProcessMessage(MessageDto message, string state);
+    }
+
+    public class AdminUseCase : BaseUseCase
+    {
+        private readonly IFileController _fileSaver;
+        public AdminUseCase(ITelegramBotClient telegramBotClient, IUsersCache usersCache, IOrderRepository orderRepository, IFileController fileSaver) : base(telegramBotClient, usersCache, orderRepository)
+        {
+            _fileSaver = fileSaver;
+        }
+
+        public override bool TryProcessMessage(MessageDto message, string state)
+        {
+            if (state == States.AdminMenu_WaitingForAPassword.ToString())
+            {
+                switch (message.Text.ToLower())
+                {
+                    case "1":
+                        UsersCache.UpdateState(message.UserId, States.UploadDataBase.ToString());
+                        SendAnswer("Вы в меню админа, хотите выгрузить данные?", message, ChatButtonsTree.YesNoReplyKeyboardMarkup);
+                        return true;
+                    
+                    case "exit":
+                        UsersCache.UpdateStateAndUserType(message.UserId, States.ChooseUserType.ToString(), UserType.FirstTime);
+                        SendAnswer("Нажмите 1 чтобы войти в меню Студент/Абитуриент, 2 - администратор", message, ChatButtonsTree.MainMenuReplyKeyboardMarkup);
+                        return true;
+                    default:
+                        SendAnswer("Неправильный пароль. Напишите exit для главного меню", message);
+                        return true;
+                }
+            }
+            if (state == States.UploadDataBase.ToString())
+            {
+                switch (message.Text.ToLower())
+                {
+                    case "yes":
+                        SendAnswer("Выгружаю", message);
+                        _fileSaver.GenerateReport(message.ChatId);
+                        return true;
+                    case "no":
+                        UsersCache.UpdateStateAndUserType(message.UserId, States.ChooseUserType.ToString(), UserType.FirstTime);
+                        SendAnswer("Нажмите 1 чтобы войти в меню Студент/Абитуриент, 2 - администратор", message, ChatButtonsTree.MainMenuReplyKeyboardMarkup);
+                        return true;
+                    default:
+                        SendAnswer("Пожалуйста, выберите yes или no", message); 
+                        return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        // 7.Регистрируем возможные варианты состояний пользователя.
+        enum States
+        {
+            AdminMenu_WaitingForAPassword,
+            UploadDataBase,
+            ChooseUserType
+        }
+    }
