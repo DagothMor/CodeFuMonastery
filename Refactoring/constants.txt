@@ -1,0 +1,16 @@
+﻿# 1
+Выделил константу разделителя для валют, в другом проекте может использоваться "," 
+public const string SEPARATOR_FOR_CURRENCIES = ".";
+
+# 2 
+Выделил из строкового значения для проверки общей суммы договоров.(там ведь могут быть и тенге и доллары)
+public const string RUS_RUB_ALPHA_CODE = "RUB";
+
+# 3
+Имя таблицы, для временного хранения данных отчета VersionGenerateReport. Для FastReport
+    [Public]  
+    public const string TEMPLATE_TABLE = "MYCOMPANY_Report_TemplateTable";
+	
+# 4 
+Выделил параметр для загрузки штрихкода  
+public const string BARCODE_PARAM_NAME = "barcodeMYCOMPANY";
