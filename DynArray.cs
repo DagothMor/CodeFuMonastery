@@ -80,9 +80,8 @@ namespace AlgorithmsDataStructures
 			if (index > count - 1 || index < 0) throw new ArgumentOutOfRangeException();
 
 			// Добавлен Math.Ceiling для корректного деления.
-			if (capacity > StartArrayLenght && count - 2 <= (int)Math.Ceiling((decimal)(capacity / 2))) MakeArray((int)Math.Ceiling((decimal)(capacity / 2)));
-			if (capacity > START_CAPACITY && count - 2 <= (int)capacity / MULTIPLY_CAPACITY) MakeArray((int)(capacity / DIVIDE_CAPACITY));
-
+			if (capacity > START_CAPACITY && count - 2 <= (int)Math.Ceiling((decimal)(capacity / MULTIPLY_CAPACITY))) MakeArray((int)Math.Ceiling((decimal)(capacity / DIVIDE_CAPACITY)));
+			
 			T[] temp = new T[capacity];
 
 			for (int i = 0; i < index; i++)
