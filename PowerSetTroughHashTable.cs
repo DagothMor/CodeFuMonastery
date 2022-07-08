@@ -145,11 +145,14 @@ namespace AlgorithmsDataStructures
                 return powerSet;
             }
         }
-        public PowerSet<T> Union(PowerSet<T> set2)
+        public PowerSet<T> Union(PowerSet<T> inputedPowerSet)
         {
+            // Добавлены константы для удобочитаемости.
+            bool inputedPowerSetIsEmpty = inputedPowerSet.Size() == 0;
+            bool ThisPowerSetIsEmpty = this.Size() == 0;
             var powerSet = new PowerSet<T>();
-            if (set2.Size() == 0 && this.Size() == 0) return powerSet;
-            if (set2.Size() == 0)
+            if (inputedPowerSetIsEmpty && ThisPowerSetIsEmpty) return powerSet;
+            if (inputedPowerSet.Size() == 0)
             {
                 foreach (var item in this.slots)
                 {
@@ -160,14 +163,14 @@ namespace AlgorithmsDataStructures
             }
             if (this.Size() == 0)
             {
-                foreach (var item in set2.slots)
+                foreach (var item in inputedPowerSet.slots)
                 {
                     if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
                     powerSet.Put(item);
                 }
                 return powerSet;
             }
-            foreach (var item in set2.slots)
+            foreach (var item in inputedPowerSet.slots)
             {
                 if (EqualityComparer<T>.Default.Equals(item, default(T))) continue;
                 powerSet.Put(item);

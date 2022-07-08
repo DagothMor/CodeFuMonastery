@@ -6,19 +6,22 @@ namespace AlgorithmsDataStructures
 
 	public class DynArray<T>
 	{
-		public T[] array;
+		// Добавлена константа для избавления от магического числа.
+        private const int StartArrayLenght = 16;
+
+        public T[] array;
 		public int count;
 		public int capacity;
 
 		public DynArray()
 		{
 			count = 0;
-			MakeArray(16);
+			MakeArray(StartArrayLenght);
 		}
 
 		public void MakeArray(int new_capacity)
 		{
-			if (new_capacity < 16) new_capacity = 16;
+			if (new_capacity < StartArrayLenght) new_capacity = StartArrayLenght;
 
 			T[] temp = new T[new_capacity];
 			for (int i = 0; i < count; i++)
@@ -32,7 +35,10 @@ namespace AlgorithmsDataStructures
 
 		public T GetItem(int index)
 		{
-			if (index > count - 1 || index < 0) throw new ArgumentOutOfRangeException();
+			// Добавлены булевы для удобочитаемости
+			bool indexIsLast = index > count - 1;
+			bool indexIsOutOfZero = index > 0;
+			if (indexIsLast || indexIsOutOfZero) throw new ArgumentOutOfRangeException();
 			return array[index];
 		}
 
@@ -72,7 +78,8 @@ namespace AlgorithmsDataStructures
 		{
 			if (index > count - 1 || index < 0) throw new ArgumentOutOfRangeException();
 
-			if (capacity > 16 && count - 2 <= (int)capacity / 2) MakeArray((int)(capacity / 1.5));
+			// Добавлен Math.Ceiling для корректного деления.
+			if (capacity > StartArrayLenght && count - 2 <= (int)Math.Ceiling((decimal)(capacity / 2))) MakeArray((int)Math.Ceiling((decimal)(capacity / 2)));
 
 			T[] temp = new T[capacity];
 
