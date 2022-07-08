@@ -5,14 +5,16 @@ namespace AlgorithmsDataStructures
 {
     public class PowerSet<T>
     {
+        private const int POWER_SET_SIZE = 20000;
+        private const int JUMP_TROUGH_INDEXES = 1;
         public int size;
         public int step;
         public T[] slots;
 
         public PowerSet()
         {
-            size = 20000;
-            step = 1;
+            size = POWER_SET_SIZE;
+            step = JUMP_TROUGH_INDEXES;
             slots = new T[size];
             for (int i = 0; i < size; i++) slots[i] = default(T);
         }

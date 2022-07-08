@@ -7,7 +7,6 @@ namespace AlgorithmsDataStructures
 {
     public class ArrayOfBits
     {
-        public int lenght = 32;
         public int value = 0;
         public ArrayOfBits() { }
         public void SetValue(int bit) 
@@ -22,6 +21,10 @@ namespace AlgorithmsDataStructures
     }
     public class BloomFilter
     {
+        private const int TEST_RANDOM_NUMBER = 223;
+        private const int TEST_RANDOM_NUMBER2 = 17;
+        private const int LENGHT_ARRAY_OF_BITS = 32;
+
         public int filter_len;
         public ArrayOfBits arrayOfBits;
 
@@ -40,7 +43,7 @@ namespace AlgorithmsDataStructures
             for (int i = 1; i < str1.Length; i++)
             {
                 int code = (int)str1[i];
-                result = (result * 17 + code) % arrayOfBits.lenght;
+                result = (result * TEST_RANDOM_NUMBER2 + code) % LENGHT_ARRAY_OF_BITS;
             }
             return result;
         }
@@ -53,7 +56,7 @@ namespace AlgorithmsDataStructures
             for (int i = 1; i < str1.Length; i++)
             {
                 int code = (int)str1[i];
-                result = (result * 223 + code) % arrayOfBits.lenght;
+                result = (result * TEST_RANDOM_NUMBER + code) % LENGHT_ARRAY_OF_BITS;
             }
             return result;
         }

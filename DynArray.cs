@@ -6,8 +6,9 @@ namespace AlgorithmsDataStructures
 
 	public class DynArray<T>
 	{
-		// Добавлена константа для избавления от магического числа.
-        private const int StartArrayLenght = 16;
+        private const int START_CAPACITY = 16;
+        private const int MULTIPLY_CAPACITY = 2;
+        private const double DIVIDE_CAPACITY = 1.5;
 
         public T[] array;
 		public int count;
@@ -16,12 +17,12 @@ namespace AlgorithmsDataStructures
 		public DynArray()
 		{
 			count = 0;
-			MakeArray(StartArrayLenght);
+			MakeArray(START_CAPACITY);
 		}
 
 		public void MakeArray(int new_capacity)
 		{
-			if (new_capacity < StartArrayLenght) new_capacity = StartArrayLenght;
+			if (new_capacity < START_CAPACITY) new_capacity = START_CAPACITY;
 
 			T[] temp = new T[new_capacity];
 			for (int i = 0; i < count; i++)
@@ -44,7 +45,7 @@ namespace AlgorithmsDataStructures
 
 		public void Append(T itm)
 		{
-			if (count == capacity) MakeArray(capacity * 2);
+			if (count == capacity) MakeArray(capacity * MULTIPLY_CAPACITY);
 			array[count] = itm;
 			count++;
 		}
@@ -53,7 +54,7 @@ namespace AlgorithmsDataStructures
 		{
 			if (index > count || index < 0) throw new ArgumentOutOfRangeException();
 
-			if (count + 1 > capacity) MakeArray(capacity * 2);
+			if (count + 1 > capacity) MakeArray(capacity * MULTIPLY_CAPACITY);
 
 			T[] temp = new T[capacity];
 
@@ -80,6 +81,7 @@ namespace AlgorithmsDataStructures
 
 			// Добавлен Math.Ceiling для корректного деления.
 			if (capacity > StartArrayLenght && count - 2 <= (int)Math.Ceiling((decimal)(capacity / 2))) MakeArray((int)Math.Ceiling((decimal)(capacity / 2)));
+			if (capacity > START_CAPACITY && count - 2 <= (int)capacity / MULTIPLY_CAPACITY) MakeArray((int)(capacity / DIVIDE_CAPACITY));
 
 			T[] temp = new T[capacity];
 
