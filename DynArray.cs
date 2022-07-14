@@ -6,13 +6,13 @@ namespace AlgorithmsDataStructures
 
 	public class DynArray<T>
 	{
-        private const int START_CAPACITY = 16;
-        private const int MULTIPLY_CAPACITY = 2;
-        private const double DIVIDE_CAPACITY = 1.5;
+        private readonly int START_CAPACITY = 16;
+        private readonly int MULTIPLY_CAPACITY = 2;
+        private readonly double DIVIDE_CAPACITY = 1.5;
 
         public T[] array;
 		public int count;
-		public int capacity;
+		private int capacity;
 
 		public DynArray()
 		{
