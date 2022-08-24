@@ -1,0 +1,17 @@
+4.3.1.
+
+SELECT *
+  FROM [northwind].[dbo].[Customers]
+  where ContactName LIKE 'c%'
+  
+4.3.2.
+
+SELECT *
+  FROM [northwind].[dbo].[Orders]
+  where (Freight between 99.0 and 200) and ShipCountry in('USA','France')
+
+4.3.3. 
+
+SELECT *
+  FROM [northwind].[dbo].[EmployeeTerritories]
+  where TerritoryID >= convert(int,6896.0) and TerritoryID <= convert(int, 31000)
