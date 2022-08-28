@@ -1,0 +1,17 @@
+5.4.1.
+SELECT EmployeeID,LastName,FirstName,BirthDate,Country
+  FROM [northwind].[dbo].[Employees] order by BirthDate desc, Country
+  
+5.4.2.
+SELECT EmployeeID,LastName,FirstName,BirthDate,Country
+FROM [northwind].[dbo].[Employees] 
+Where Region is null
+order by BirthDate desc, Country
+
+5.4.3.
+SELECT avg(UnitPrice) as average, min(UnitPrice) as minimum, max(UnitPrice) as maximum
+  FROM [northwind].[dbo].[Order Details]
+  
+5.4.4.
+SELECT count(distinct City)
+  FROM [northwind].[dbo].[Customers]
