@@ -1,0 +1,21 @@
+6.3.1. 
+
+SELECT ContactType
+  FROM [northwind].[dbo].[Contacts]
+  Group by ContactType
+
+SELECT ContactType
+  FROM [northwind].[dbo].[Contacts]
+  Group by ContactType
+  having ContactType like 'S%'
+
+SELECT ContactType
+  FROM [northwind].[dbo].[Contacts]
+  where ContactType like 'S%'
+  Group by ContactType
+
+6.3.2.
+SELECT avg(UnitPrice) as 'avg UnitPrice',CategoryID
+  FROM [northwind].[dbo].[Products]
+  group by CategoryID
+  order by [avg UnitPrice]
