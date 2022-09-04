@@ -1,0 +1,20 @@
+8.3.1.
+SELECT Products.ProductName,Categories.CategoryName
+  FROM Products, Categories
+  where Products.CategoryID = Categories.CategoryID
+  
+8.3.2
+SELECT Products.ProductName, Products.UnitPrice, [Order Details].UnitPrice as 'UnitPriceInOrderDetails'
+  FROM Products, [Order Details]
+  where Products.ProductID = [Order Details].ProductID 
+  and [Order Details].UnitPrice < 20
+
+8.3.3
+SELECT Categories.CategoryName,
+		Products.ProductName,
+		Products.UnitPrice,
+		[Order Details].UnitPrice as 'UnitPriceInOrderDetails'
+  FROM Products, [Order Details],Categories
+  where Products.ProductID = [Order Details].ProductID 
+  and [Order Details].UnitPrice < 20
+  and Products.CategoryID = Categories.CategoryID
