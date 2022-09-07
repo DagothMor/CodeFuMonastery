@@ -1,0 +1,17 @@
+9.4.1.
+
+select c1.ContactName,c2.ContactName, c1.Region from customers c1,customers c2
+where (c1.Region is null) and (c2.region is null)
+
+9.4.2. 
+
+select o1.OrderID, o1.CustomerID from Orders o1
+where exists
+(select * from customers c1
+where c1.CustomerID = o1.CustomerID and c1.Region is not null)
+
+9.4.3.
+
+select o1.OrderID, o1.Freight, p1.UnitPrice from Orders o1, Products p1
+where o1.Freight > any (select max(p.UnitPrice) from products p )
+order by p1.UnitPrice
