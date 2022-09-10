@@ -1,0 +1,26 @@
+﻿10.4.1.
+
+SELECT Products.ProductName, Products.UnitPrice, [Order Details].UnitPrice as 'UnitPriceInOrderDetails'
+  FROM Products
+  join [Order Details]
+  on Products.ProductID = [Order Details].ProductID 
+  and [Order Details].UnitPrice < 20
+
+10.4.2. 
+
+SELECT Orders.Freight, Customers.CompanyName,Orders.CustomerID as ordID,Customers.CustomerID as custID
+FROM Orders full JOIN Customers
+ON Orders.CustomerID = Customers.CustomerID
+ORDER BY Freight;
+
+поля заполнились null потому что не подошли по условию отбора и заполнились null 
+
+10.4.3. 
+
+instead 'where' write 'on' 
+
+10.4.4. 
+
+SELECT Products.ProductName, [Order Details].UnitPrice
+FROM Products inner JOIN [Order Details]
+on Products.ProductID = [Order Details].ProductID
