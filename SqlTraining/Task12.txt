@@ -1,0 +1,34 @@
+12.3.1.
+INSERT INTO Employees (FirstName, LastName, Address, City, PostalCode, Country)
+VALUES ('Peter', 'Parker', 'Pushkina 133/7 23', ' New York', '445783', 'USA');
+
+12.3.2.
+INSERT INTO EmployeeTerritories (EmployeeID,TerritoryID)
+VALUES (11,10019);
+
+12.3.3.
+
+INSERT INTO Orders (CustomerID,EmployeeID,OrderID,Freight)
+VALUES (12,3413,323,444444);
+
+Cannot insert explicit value for identity column in table 'Orders' when IDENTITY_INSERT is set to OFF.
+
+SET IDENTITY_INSERT Orders ON
+
+INSERT INTO Orders (CustomerID,EmployeeID,OrderID,Freight)
+VALUES (12,3413,323,444444);
+
+SET IDENTITY_INSERT Orders off
+
+The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Orders_Customers". The conflict occurred in database "northwind", table "dbo.Customers", column 'CustomerID'.
+
+edited FKeys
+
+SET IDENTITY_INSERT Orders ON
+
+INSERT INTO Orders (CustomerID,EmployeeID,OrderID,Freight)
+VALUES ('alfki',1,1,444444);
+
+SET IDENTITY_INSERT Orders off
+
+its work
