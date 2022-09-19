@@ -1,0 +1,24 @@
+13.3.1. 
+
+UPDATE [Order Details]
+SET Discount = 0.20
+WHERE Quantity > 50;
+
+13.3.2.
+
+UPDATE Contacts
+SET City = 'Piter', Country = 'Russia'
+WHERE City = 'Berlin' and Country = 'Germany';
+
+13.3.3. 
+
+Insert into Shippers(CompanyName,Phone)
+values ('SiltStrider BugLines','8805553535')
+
+Insert into Shippers(CompanyName,Phone)
+values ('Top Guar','555555555555')
+
+Delete from Shippers
+where shippers.ShipperID = (select MAX(ShipperID) from Shippers )
+
+Delete by max
