@@ -1,0 +1,13 @@
+﻿Создайте в новой базе таблицу Territories со структурой, аналогичной структуре таблицы Territories из учебной базы. Добавьте в неё и таблицу Region несколько значений так, чтобы они оказались связаны друг с другом через FK.
+
+CREATE TABLE Territories ( 
+    TerritoryID nvarchar(20) NOT NULL,
+	TerritoryDescription nchar(50) NOT NULL, 
+	RegionID int NOT NULL); 
+	
+указал RelationShips явно через графический интерфейс
+
+insert into Region values ( 1,'firstDesc')
+insert into Region values ( 2,'secDesc')
+insert into Territories values ( 1,'firstDesc',2)
+insert into Territories values ( 2,'firstDesc',2)
