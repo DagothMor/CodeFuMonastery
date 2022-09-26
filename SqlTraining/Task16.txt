@@ -1,0 +1,9 @@
+indexes for region
+
+CREATE CLUSTERED INDEX PK_Region ON Region (RegionID)
+
+indexes for Territories
+
+CREATE CLUSTERED INDEX PK_Territories ON Territories (TerritoryId)
+
+CREATE INDEX RegionID ON Territories (RegionID)
