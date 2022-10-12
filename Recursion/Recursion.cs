@@ -46,5 +46,58 @@ namespace CodeFuMonastery.Recursion
             return false;
         }
 
+        // 5. Печать только чётных значений из списка.
+        public static void WriteOnlyEvenValuesFromList(List<int> list)
+        {
+            if (list.Count == 0) return;
+            if (list[0] % 2 == 0)
+                Console.WriteLine(list[0]);
+            list.RemoveAt(0);
+            WriteOnlyEvenValuesFromList(list);
+        }
+        // 6. Печать элементов списка с чётными индексами; 
+        public static void WriteOnlyEvenIndexesFromList(List<int> list)
+        {
+            if (list.Count == 0) return;
+            if (list.Count == 1)
+            {
+                Console.WriteLine(list[0]);
+                return;
+            }
+            Console.WriteLine(list[0]);
+            list.RemoveRange(0, 2);
+            WriteOnlyEvenIndexesFromList(list);
+        }
+        // 7. нахождение второго максимального числа в списке
+        // (с учётом, что максимальных может быть несколько, если они равны);  
+        public static int? FindSecondMaxNumber(List<int> list, int? firstMaxNumber, int? secondMaxNumber)
+        {
+            if (list.Count == 0 && firstMaxNumber == null && secondMaxNumber == null) return null;
+            if (list.Count == 0 && firstMaxNumber != null && secondMaxNumber == null) return firstMaxNumber;
+            if (list.Count == 0 && firstMaxNumber != null && secondMaxNumber != null) return secondMaxNumber;
+            if (list.Count == 1 && firstMaxNumber == null && secondMaxNumber == null) return list[0];
+            if (list.Count == 2 && firstMaxNumber == null && secondMaxNumber == null) return list[0] > list[1] ? list[1] : list[0];
+            if (firstMaxNumber == null)
+            {
+                firstMaxNumber = list[0];
+                list.RemoveAt(0);
+                return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
+            }
+            else if (firstMaxNumber < list[0])
+            {
+                secondMaxNumber = firstMaxNumber;
+                firstMaxNumber = list[0];
+                list.RemoveAt(0);
+                return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
+            }
+            else if (secondMaxNumber < list[0] && firstMaxNumber != list[0])
+            {
+                secondMaxNumber = list[0];
+                list.RemoveAt(0);
+                return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
+            }
+            list.RemoveAt(0);
+            return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
+        }
     }
 }
