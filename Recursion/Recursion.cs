@@ -39,9 +39,7 @@ namespace CodeFuMonastery.Recursion
         // проверка, является ли строка палиндромом;
         public static bool IsPalyndrome(string text)
         {
-            if (text.Count() == 3) return text[0] == text[text.Length - 1];
-            if (text.Count() == 2) return text[0] == text[1];
-            if (text.Count() == 1) return true;
+            if (text.Count() < 2) return true;
             if (text[0] == text[text.Length - 1])
                 return IsPalyndrome(text.Substring(1, text.Length - 2));
             return false;
