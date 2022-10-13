@@ -41,8 +41,13 @@ namespace AlgorithmsDataStructures
             //var listEvenIndexes = new List<int>() { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 };
             //Recursion.WriteOnlyEvenValuesFromList(list);
             //Recursion.WriteOnlyEvenIndexesFromList(listEvenIndexes);
-            var list = new List<int>() { -1,10,11,0,1,2,2,3};
-            Console.WriteLine(Recursion.FindSecondMaxNumber(list,null,null)); 
+            var list = new List<int>() { 0,1,2,2};
+            Console.WriteLine(Recursion.FindSecondMaxNumber(list)); 
+            //var files = Recursion.FindFiles(@"C:\testFolder\", "redkey.txt");
+            //foreach (var item in files)
+            //{
+            //    Console.WriteLine(item);
+            //}
             Console.ReadKey();
         }
     }

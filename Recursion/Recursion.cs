@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,8 +53,7 @@ namespace CodeFuMonastery.Recursion
             if (list.Count == 0) return;
             if (list[0] % 2 == 0)
                 Console.WriteLine(list[0]);
-            list.RemoveAt(0);
-            WriteOnlyEvenValuesFromList(list);
+            WriteOnlyEvenValuesFromList(list.Skip(1).ToList());
         }
         // 6. Печать элементов списка с чётными индексами; 
         public static void WriteOnlyEvenIndexesFromList(List<int> list)
@@ -65,39 +65,63 @@ namespace CodeFuMonastery.Recursion
                 return;
             }
             Console.WriteLine(list[0]);
-            list.RemoveRange(0, 2);
-            WriteOnlyEvenIndexesFromList(list);
+            WriteOnlyEvenIndexesFromList(list.Skip(2).ToList());
         }
+
         // 7. нахождение второго максимального числа в списке
         // (с учётом, что максимальных может быть несколько, если они равны);  
-        public static int? FindSecondMaxNumber(List<int> list, int? firstMaxNumber, int? secondMaxNumber)
+        public static int FindSecondMaxNumber(List<int> list)
         {
-            if (list.Count == 0 && firstMaxNumber == null && secondMaxNumber == null) return null;
-            if (list.Count == 0 && firstMaxNumber != null && secondMaxNumber == null) return firstMaxNumber;
-            if (list.Count == 0 && firstMaxNumber != null && secondMaxNumber != null) return secondMaxNumber;
-            if (list.Count == 1 && firstMaxNumber == null && secondMaxNumber == null) return list[0];
-            if (list.Count == 2 && firstMaxNumber == null && secondMaxNumber == null) return list[0] > list[1] ? list[1] : list[0];
-            if (firstMaxNumber == null)
-            {
-                firstMaxNumber = list[0];
-                list.RemoveAt(0);
-                return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
-            }
-            else if (firstMaxNumber < list[0])
+            return list.Any() ? SecondNumberSearch(list.Skip(1).ToList(), list[0], list[0]) : 0;
+        }
+        public static int SecondNumberSearch(List<int> list, int firstMaxNumber, int secondMaxNumber)
+        {
+            if (list.Count == 0) return secondMaxNumber;
+            
+            if (firstMaxNumber < list[0])
             {
                 secondMaxNumber = firstMaxNumber;
                 firstMaxNumber = list[0];
-                list.RemoveAt(0);
-                return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
+                return SecondNumberSearch(list.Skip(1).ToList(), firstMaxNumber, secondMaxNumber);
             }
-            else if (secondMaxNumber < list[0] && firstMaxNumber != list[0])
+            if (secondMaxNumber < list[0] && firstMaxNumber != list[0])
             {
                 secondMaxNumber = list[0];
-                list.RemoveAt(0);
-                return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
+                return SecondNumberSearch(list.Skip(1).ToList(), firstMaxNumber, secondMaxNumber);
             }
-            list.RemoveAt(0);
-            return FindSecondMaxNumber(list, firstMaxNumber, secondMaxNumber);
+            return SecondNumberSearch(list.Skip(1).ToList(), firstMaxNumber, secondMaxNumber);
+        }
+
+        // поиск всех файлов в заданном каталоге,
+        // включая файлы, расположенные в подкаталогах произвольной вложенности.
+        public static List<string> FindFiles(string startCatalog, string fileSearchName)
+        {
+            var foundedFiles = new List<string>();
+            BFS(startCatalog, ref foundedFiles, fileSearchName);
+            return foundedFiles;
+        }
+
+        public static void BFS(string catalog, ref List<string> filesFounded, string fileSearchName)
+        {
+            var folders = Directory.GetDirectories(catalog);
+            var filesInFolder = Directory.GetFiles(catalog);
+            foreach (var file in filesInFolder)
+            {
+                if (Path.GetFileName(file) == fileSearchName)
+                    filesFounded.Add(file);
+            }
+            foreach (var folder in folders)
+            {
+                BFS(folder, ref filesFounded, fileSearchName);
+            }
+        }
+
+        // Генерация всех корректных сбалансированных
+        // комбинаций круглых скобок (параметр -- количество открывающих скобок).  
+        public static List<string> GenerateAllVariantsOfOpenBrackets(int count)
+        {
+
+            return new List<string>();
         }
     }
 }
