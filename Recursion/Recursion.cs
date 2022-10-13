@@ -77,7 +77,7 @@ namespace CodeFuMonastery.Recursion
         public static int SecondNumberSearch(List<int> list, int firstMaxNumber, int secondMaxNumber)
         {
             if (list.Count == 0) return secondMaxNumber;
-            
+
             if (firstMaxNumber < list[0])
             {
                 secondMaxNumber = firstMaxNumber;
