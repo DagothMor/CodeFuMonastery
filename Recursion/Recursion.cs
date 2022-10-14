@@ -68,7 +68,13 @@ namespace CodeFuMonastery.Recursion
         // (с учётом, что максимальных может быть несколько, если они равны);  
         public static int FindSecondMaxNumber(List<int> list)
         {
-            return list.Count > 0 ? SecondNumberSearch(list, 0, 0, 0) : 0;
+            if (list.Count > 1) 
+            {
+                var min = Math.Min(list[0], list[1]);
+                var max = Math.Max(list[0], list[1]);
+                return SecondNumberSearch(list, max, min, 0);
+            }
+            return 0;
         }
         public static int SecondNumberSearch(List<int> list, int firstMaxNumber, int secondMaxNumber, int index)
         {
@@ -93,23 +99,25 @@ namespace CodeFuMonastery.Recursion
         public static List<string> FindFiles(string startCatalog, string fileSearchName)
         {
             var foundedFiles = new List<string>();
-            BFS(startCatalog, ref foundedFiles, fileSearchName);
+            foundedFiles.AddRange(DFS(startCatalog,fileSearchName));
             return foundedFiles;
         }
 
-        public static void BFS(string catalog, ref List<string> filesFounded, string fileSearchName)
+        public static List<string> DFS(string catalog, string fileSearchName)
         {
             var folders = Directory.GetDirectories(catalog);
             var filesInFolder = Directory.GetFiles(catalog);
+            var list = new List<string>();
+            foreach (var folder in folders)
+            {
+                list.AddRange(DFS(folder, fileSearchName));
+            }
             foreach (var file in filesInFolder)
             {
                 if (Path.GetFileName(file) == fileSearchName)
-                    filesFounded.Add(file);
+                    list.Add(file);
             }
-            foreach (var folder in folders)
-            {
-                BFS(folder, ref filesFounded, fileSearchName);
-            }
+            return list;
         }
 
         // Генерация всех корректных сбалансированных
