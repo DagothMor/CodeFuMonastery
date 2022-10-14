@@ -46,48 +46,46 @@ namespace CodeFuMonastery.Recursion
         }
 
         // 5. Печать только чётных значений из списка.
-        public static void WriteOnlyEvenValuesFromList(List<int> list)
+        public static void WriteOnlyEvenValuesFromList(List<int> list, int index)
         {
-            if (list.Count == 0) return;
-            if (list[0] % 2 == 0)
-                Console.WriteLine(list[0]);
-            WriteOnlyEvenValuesFromList(list.Skip(1).ToList());
+            if (index >= list.Count) return;
+            if (list[index] % 2 == 0)
+                Console.WriteLine(list[index]);
+            WriteOnlyEvenValuesFromList(list, index + 1);
         }
         // 6. Печать элементов списка с чётными индексами; 
-        public static void WriteOnlyEvenIndexesFromList(List<int> list)
+        public static void WriteOnlyEvenIndexesFromList(List<int> list, int index)
         {
-            if (list.Count == 0) return;
-            if (list.Count == 1)
+            if (index > list.Count) return;
+            if (index % 2 == 0)
             {
-                Console.WriteLine(list[0]);
-                return;
+                Console.WriteLine(list[index]);
             }
-            Console.WriteLine(list[0]);
-            WriteOnlyEvenIndexesFromList(list.Skip(2).ToList());
+            WriteOnlyEvenIndexesFromList(list, index + 2);
         }
 
         // 7. нахождение второго максимального числа в списке
         // (с учётом, что максимальных может быть несколько, если они равны);  
         public static int FindSecondMaxNumber(List<int> list)
         {
-            return list.Any() ? SecondNumberSearch(list.Skip(1).ToList(), list[0], list[0]) : 0;
+            return list.Count > 0 ? SecondNumberSearch(list, 0, 0, 0) : 0;
         }
-        public static int SecondNumberSearch(List<int> list, int firstMaxNumber, int secondMaxNumber)
+        public static int SecondNumberSearch(List<int> list, int firstMaxNumber, int secondMaxNumber, int index)
         {
-            if (list.Count == 0) return secondMaxNumber;
+            if (index == list.Count) return secondMaxNumber;
 
-            if (firstMaxNumber < list[0])
+            if (firstMaxNumber < list[index])
             {
                 secondMaxNumber = firstMaxNumber;
-                firstMaxNumber = list[0];
-                return SecondNumberSearch(list.Skip(1).ToList(), firstMaxNumber, secondMaxNumber);
+                firstMaxNumber = list[index];
+                return SecondNumberSearch(list, firstMaxNumber, secondMaxNumber, index + 1);
             }
-            if (secondMaxNumber < list[0] && firstMaxNumber != list[0])
+            if (secondMaxNumber < list[index] && firstMaxNumber != list[index])
             {
-                secondMaxNumber = list[0];
-                return SecondNumberSearch(list.Skip(1).ToList(), firstMaxNumber, secondMaxNumber);
+                secondMaxNumber = list[index];
+                return SecondNumberSearch(list, firstMaxNumber, secondMaxNumber, index + 1);
             }
-            return SecondNumberSearch(list.Skip(1).ToList(), firstMaxNumber, secondMaxNumber);
+            return SecondNumberSearch(list, firstMaxNumber, secondMaxNumber, index + 1);
         }
 
         // поиск всех файлов в заданном каталоге,
