@@ -45,12 +45,19 @@ namespace AlgorithmsDataStructures
             //var list = new List<int>() {1,2,3,12,13};
             //Console.WriteLine(Recursion.FindSecondMaxNumber(list)); 
 
-            var files = Recursion.FindFiles(@"C:\testFolder\", "redkey.txt");
-            foreach (var item in files)
-            {
-                Console.WriteLine(item);
-            }
+            //var files = Recursion.FindFiles(@"C:\testFolder\", "redkey.txt");
+            //foreach (var item in files)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            int countOfOpenBrackets = 4;
+
+            Recursion.GenerateAllVariantsOfBalanceBrackets(countOfOpenBrackets);
+
             Console.ReadKey();
+
+
         }
     }
 }

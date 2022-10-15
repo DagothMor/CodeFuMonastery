@@ -68,7 +68,7 @@ namespace CodeFuMonastery.Recursion
         // (с учётом, что максимальных может быть несколько, если они равны);  
         public static int FindSecondMaxNumber(List<int> list)
         {
-            if (list.Count > 1) 
+            if (list.Count > 1)
             {
                 var min = Math.Min(list[0], list[1]);
                 var max = Math.Max(list[0], list[1]);
@@ -84,12 +84,10 @@ namespace CodeFuMonastery.Recursion
             {
                 secondMaxNumber = firstMaxNumber;
                 firstMaxNumber = list[index];
-                return SecondNumberSearch(list, firstMaxNumber, secondMaxNumber, index + 1);
             }
             if (secondMaxNumber < list[index] && firstMaxNumber != list[index])
             {
                 secondMaxNumber = list[index];
-                return SecondNumberSearch(list, firstMaxNumber, secondMaxNumber, index + 1);
             }
             return SecondNumberSearch(list, firstMaxNumber, secondMaxNumber, index + 1);
         }
@@ -99,7 +97,7 @@ namespace CodeFuMonastery.Recursion
         public static List<string> FindFiles(string startCatalog, string fileSearchName)
         {
             var foundedFiles = new List<string>();
-            foundedFiles.AddRange(DFS(startCatalog,fileSearchName));
+            foundedFiles.AddRange(DFS(startCatalog, fileSearchName));
             return foundedFiles;
         }
 
@@ -122,10 +120,27 @@ namespace CodeFuMonastery.Recursion
 
         // Генерация всех корректных сбалансированных
         // комбинаций круглых скобок (параметр -- количество открывающих скобок).  
-        public static List<string> GenerateAllVariantsOfOpenBrackets(int count)
+        public static void GenerateAllVariantsOfBalanceBrackets(int countOfOpenBrackets)
         {
+            Generate(countOfOpenBrackets, 0, 0, "");
+        }
 
-            return new List<string>();
+        static public void Generate(int countOfOpenBrackets, int openBrackets, int closeBrackets, string currentVariant)
+        {
+            if (openBrackets == countOfOpenBrackets && closeBrackets == countOfOpenBrackets)
+            {
+                Console.WriteLine(currentVariant.ToString());
+                return;
+            }
+            if (openBrackets < countOfOpenBrackets)
+            {
+                Generate(countOfOpenBrackets, openBrackets + 1, closeBrackets, currentVariant + "{");
+
+            }
+            if (closeBrackets < openBrackets)
+            {
+                Generate(countOfOpenBrackets, openBrackets, closeBrackets + 1, currentVariant + "}");
+            }
         }
     }
 }
