@@ -35,6 +35,7 @@ namespace AlgorithmsDataStructures2
             if (ParentNode == null || NewChild == null) return;
             ParentNode.Children.Add(NewChild);
             NewChild.Parent = ParentNode;
+            NewChild.Level = ParentNode.Level + 1;
         }
 
         // Done.
