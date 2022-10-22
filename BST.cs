@@ -7,9 +7,9 @@ namespace AlgorithmsDataStructures2
     {
         public int NodeKey;
         public T NodeValue;
-        public BSTNode<T> Parent; 
-        public BSTNode<T> LeftChild; 
-        public BSTNode<T> RightChild;	
+        public BSTNode<T> Parent;
+        public BSTNode<T> LeftChild;
+        public BSTNode<T> RightChild;
 
         public BSTNode(int key, T val, BSTNode<T> parent)
         {
@@ -34,7 +34,7 @@ namespace AlgorithmsDataStructures2
 
     public class BST<T>
     {
-        public BSTNode<T> Root; 
+        public BSTNode<T> Root;
 
         public BST(BSTNode<T> node)
         {
@@ -100,18 +100,18 @@ namespace AlgorithmsDataStructures2
         {
             if (this.Root == null)
             {
-                this.Root = new BSTNode<T>(key,val,null);
+                this.Root = new BSTNode<T>(key, val, null);
                 return true;
 
             }
             var foundedNode = FindNodeByKey(key);
 
-            if (foundedNode.NodeHasKey) 
+            if (foundedNode.NodeHasKey)
             {
-                return false; 
+                return false;
             }
-            if (foundedNode.ToLeft)  foundedNode.Node.LeftChild = new BSTNode<T>(key, val, foundedNode.Node); 
-            else foundedNode.Node.RightChild = new BSTNode<T>(key, val,foundedNode.Node);
+            if (foundedNode.ToLeft) foundedNode.Node.LeftChild = new BSTNode<T>(key, val, foundedNode.Node);
+            else foundedNode.Node.RightChild = new BSTNode<T>(key, val, foundedNode.Node);
             return true;
         }
 
@@ -124,7 +124,7 @@ namespace AlgorithmsDataStructures2
 
         public bool DeleteNodeByKey(int key)
         {
-            return DeleteNodeByKeyStart(key,this.Root);
+            return DeleteNodeByKeyStart(key, this.Root);
         }
         private bool DeleteNodeByKeyStart(int key, BSTNode<T> node)
         {
@@ -134,8 +134,8 @@ namespace AlgorithmsDataStructures2
             {
                 return false;
             }
-            
-            var deletingNode = foundedNode.Node; 
+
+            var deletingNode = foundedNode.Node;
 
             if (deletingNode.Parent == null && deletingNode.LeftChild == null && deletingNode.RightChild == null)
             {
@@ -157,7 +157,7 @@ namespace AlgorithmsDataStructures2
 
             if (deletingNode.Parent == null)
             {
-                var minNode =  FinMinMax(deletingNode.RightChild, false) ;
+                var minNode = FinMinMax(deletingNode.RightChild, false);
                 if (minNode.LeftChild == null && minNode.RightChild == null)
                 {
                     minNode.Parent.LeftChild = minNode.Parent.LeftChild.Equals(minNode) ? null : minNode.Parent.LeftChild;
@@ -188,9 +188,9 @@ namespace AlgorithmsDataStructures2
 
             if (deletingNode.LeftChild == null && deletingNode.RightChild == null)
             {
-                
+
                 if (deletingNode.Parent.LeftChild != null)
-                deletingNode.Parent.LeftChild = deletingNode.Parent.LeftChild.Equals(deletingNode) ? null : deletingNode.Parent.LeftChild;
+                    deletingNode.Parent.LeftChild = deletingNode.Parent.LeftChild.Equals(deletingNode) ? null : deletingNode.Parent.LeftChild;
                 if (deletingNode.Parent.RightChild != null)
                     deletingNode.Parent.RightChild = deletingNode.Parent.RightChild.Equals(deletingNode) ? null : deletingNode.Parent.RightChild;
                 return true;
@@ -216,24 +216,24 @@ namespace AlgorithmsDataStructures2
             else
             {
                 var minNode = foundedNode.Node.RightChild != null ? FinMinMax(foundedNode.Node.RightChild, false) : foundedNode.Node.Parent;
-                
+
                 if (minNode.NodeKey < deletingNode.NodeKey) return false;
                 if (minNode.NodeKey == deletingNode.NodeKey)
                 {
                     this.Root = null;
                     return true;
                 }
-                
+
                 if (minNode.LeftChild == null && minNode.RightChild == null)
                 {
                     minNode.Parent.LeftChild = minNode.Parent.LeftChild.Equals(minNode) ? null : minNode.Parent.LeftChild;
                     minNode.Parent.RightChild = minNode.Parent.RightChild.Equals(minNode) ? null : minNode.Parent.RightChild;
 
-                    
+
                     deletingNode.Parent.LeftChild = deletingNode.Parent.LeftChild.Equals(deletingNode) ? minNode : deletingNode.Parent.LeftChild;
                     deletingNode.Parent.RightChild = deletingNode.Parent.RightChild.Equals(deletingNode) ? minNode : deletingNode.Parent.RightChild;
 
-                    
+
 
                     minNode.LeftChild = deletingNode.LeftChild.NodeKey < minNode.NodeKey ? deletingNode.LeftChild : deletingNode.RightChild;
                     minNode.RightChild = deletingNode.RightChild.NodeKey > minNode.NodeKey ? deletingNode.RightChild : deletingNode.LeftChild;
@@ -243,28 +243,28 @@ namespace AlgorithmsDataStructures2
                     deletingNode.RightChild.Parent = minNode;
                     deletingNode.LeftChild.Parent = minNode;
                 }
-                else 
+                else
                 {
                     deletingNode.Parent.LeftChild = deletingNode.Parent.LeftChild.Equals(deletingNode) ? minNode : deletingNode.Parent.LeftChild;
                     deletingNode.Parent.RightChild = deletingNode.Parent.RightChild.Equals(deletingNode) ? minNode : deletingNode.Parent.RightChild;
 
                     minNode.LeftChild = deletingNode.LeftChild;
                     deletingNode.LeftChild.Parent = minNode;
-;
+                    ;
                     minNode.Parent = deletingNode.Parent;
 
                 }
-                
+
                 return true;
             }
-            
+
         }
 
         public int Count()
         {
             if (this.Root == null)
                 return 0;
-            return 1+CountStart(this.Root);
+            return 1 + CountStart(this.Root);
         }
 
         public int CountStart(BSTNode<T> node)
