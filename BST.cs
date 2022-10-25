@@ -301,17 +301,17 @@ namespace AlgorithmsDataStructures2
 
             while (bufferList.Count > 0)
             {
-                bufferNode = listOfNodes[0];
+                bufferNode = bufferList[0];
                 listOfNodes.Add(bufferNode);
+                bufferList.RemoveAt(0);
                 if (bufferNode.LeftChild != null)
                 {
-                    listOfNodes.Add(bufferNode.LeftChild);
+                    bufferList.Add(bufferNode.LeftChild);
                 }
                 if (bufferNode.RightChild != null)
                 {
-                    listOfNodes.Add(bufferNode.RightChild);
+                    bufferList.Add(bufferNode.RightChild);
                 }
-                listOfNodes.RemoveAt(0);
             }
             return listOfNodes;
         }
