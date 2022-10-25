@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="BloomFilter.cs" />
     <Compile Include="BST.cs" />
+    <Compile Include="BSTNode.cs" />
     <Compile Include="CircularLinkedList.cs" />
     <Compile Include="Deque.cs" />
     <Compile Include="DequeController.cs" />

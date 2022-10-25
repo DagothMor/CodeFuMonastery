@@ -11,6 +11,10 @@ namespace AlgorithmsDataStructures2
         public BSTNode<T> LeftChild;
         public BSTNode<T> RightChild;
 
+        public BSTNode()
+        {
+        }
+
         public BSTNode(int key, T val, BSTNode<T> parent)
         {
             NodeKey = key;
@@ -124,10 +128,6 @@ namespace AlgorithmsDataStructures2
 
         public bool DeleteNodeByKey(int key)
         {
-            return DeleteNodeByKeyStart(key, this.Root);
-        }
-        private bool DeleteNodeByKeyStart(int key, BSTNode<T> node)
-        {
             var foundedNode = FindNodeByKey(key);
 
             if (!foundedNode.NodeHasKey)
@@ -137,6 +137,7 @@ namespace AlgorithmsDataStructures2
 
             var deletingNode = foundedNode.Node;
 
+            // if foundedNode is root.
             if (deletingNode.Parent == null && deletingNode.LeftChild == null && deletingNode.RightChild == null)
             {
                 this.Root = null;
@@ -186,6 +187,12 @@ namespace AlgorithmsDataStructures2
                 }
             }
 
+            return DeleteNodeByKeyStart(foundedNode);
+        }
+        private bool DeleteNodeByKeyStart(BSTFind<T> foundedNode)
+        {
+
+            var deletingNode = foundedNode.Node;
             if (deletingNode.LeftChild == null && deletingNode.RightChild == null)
             {
 
@@ -282,6 +289,67 @@ namespace AlgorithmsDataStructures2
             }
             return count;
         }
+        public List<BSTNode<T>> WideAllNodes()
+        {
+            List<BSTNode<T>> listOfNodes = new List<BSTNode<T>>();
 
+            List<BSTNode<T>> bufferList = new List<BSTNode<T>>();
+
+            var bufferNode = new BSTNode<T>();
+
+            bufferList.Add(Root);
+
+            while (bufferList.Count > 0)
+            {
+                bufferNode = listOfNodes[0];
+                listOfNodes.Add(bufferNode);
+                if (bufferNode.LeftChild != null)
+                {
+                    listOfNodes.Add(bufferNode.LeftChild);
+                }
+                if (bufferNode.RightChild != null)
+                {
+                    listOfNodes.Add(bufferNode.RightChild);
+                }
+                listOfNodes.RemoveAt(0);
+            }
+            return listOfNodes;
+        }
+
+        public List<BSTNode<T>> DeepAllNodes(int order)
+        {
+            return DeepAllNodesStart(Root, order);
+        }
+
+        public List<BSTNode<T>> DeepAllNodesStart(BSTNode<T> node, int order)
+        {
+
+            List<BSTNode<T>> listOfNodes = new List<BSTNode<T>>();
+
+            if (node == null) return listOfNodes;
+
+            // in order
+            if (order == 0)
+            {
+                listOfNodes.AddRange(DeepAllNodesStart(node.LeftChild, order));
+                listOfNodes.Add(node);
+                listOfNodes.AddRange(DeepAllNodesStart(node.RightChild, order));
+            }
+            //post order
+            else if (order == 1)
+            {
+                listOfNodes.AddRange(DeepAllNodesStart(node.LeftChild, order));
+                listOfNodes.AddRange(DeepAllNodesStart(node.RightChild, order));
+                listOfNodes.Add(node);
+            }
+            // pre order
+            if (order == 2)
+            {
+                listOfNodes.Add(node);
+                listOfNodes.AddRange(DeepAllNodesStart(node.LeftChild, order));
+                listOfNodes.AddRange(DeepAllNodesStart(node.RightChild, order));
+            }
+            return listOfNodes;
+        }
     }
 }
