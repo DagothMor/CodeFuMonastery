@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aBST.cs" />
     <Compile Include="BloomFilter.cs" />
     <Compile Include="BST.cs" />
     <Compile Include="CircularLinkedList.cs" />
