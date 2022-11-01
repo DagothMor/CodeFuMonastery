@@ -47,6 +47,7 @@
     <Compile Include="BloomFilter.cs" />
     <Compile Include="BST.cs" />
     <Compile Include="CircularLinkedList.cs" />
+    <Compile Include="BalancedBST.cs" />
     <Compile Include="Deque.cs" />
     <Compile Include="DequeController.cs" />
     <Compile Include="DynArray.cs" />
