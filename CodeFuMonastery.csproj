@@ -44,10 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aBST.cs" />
+    <Compile Include="BalancedBST.cs" />
     <Compile Include="BloomFilter.cs" />
     <Compile Include="BST.cs" />
     <Compile Include="CircularLinkedList.cs" />
-    <Compile Include="BalancedBST.cs" />
     <Compile Include="Deque.cs" />
     <Compile Include="DequeController.cs" />
     <Compile Include="DynArray.cs" />
@@ -58,6 +58,7 @@
     <Compile Include="LinkedList.cs" />
     <Compile Include="NativeCache.cs" />
     <Compile Include="NativeDictionary.cs" />
+    <Compile Include="NewBalancedBST.cs" />
     <Compile Include="OrderedList.cs" />
     <Compile Include="PowerSet.cs" />
     <Compile Include="PowerSetTroughHashTable.cs" />
