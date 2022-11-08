@@ -284,9 +284,9 @@ namespace AlgorithmsDataStructures2
             }
             return count;
         }
-        public List<BSTNode> WideAllNodes()
+        public List<LiteBSTNode> WideAllNodes()
         {
-            List<BSTNode> listOfNodes = new List<BSTNode>();
+            List<LiteBSTNode> listOfNodes = new List<LiteBSTNode>();
 
             List<BSTNode<T>> bufferList = new List<BSTNode<T>>();
 
@@ -295,7 +295,7 @@ namespace AlgorithmsDataStructures2
             while (bufferList.Count > 0)
             {
                 var bufferNode = bufferList[0];
-                var bstNode = new BSTNode(bufferNode.NodeKey);
+                var bstNode = new LiteBSTNode(bufferNode.NodeKey);
                 listOfNodes.Add(bstNode);
                 bufferList.RemoveAt(0);
                 if (bufferNode.LeftChild != null)
@@ -310,15 +310,15 @@ namespace AlgorithmsDataStructures2
             return listOfNodes;
         }
 
-        public List<BSTNode> DeepAllNodes(int order)
+        public List<LiteBSTNode> DeepAllNodes(int order)
         {
             return DeepAllNodesStart(Root, order);
         }
 
-        public List<BSTNode> DeepAllNodesStart(BSTNode<T> node, int order)
+        public List<LiteBSTNode> DeepAllNodesStart(BSTNode<T> node, int order)
         {
 
-            List<BSTNode> listOfNodes = new List<BSTNode>();
+            List<LiteBSTNode> listOfNodes = new List<LiteBSTNode>();
 
             if (node == null) return listOfNodes;
 
@@ -326,7 +326,7 @@ namespace AlgorithmsDataStructures2
             if (order == 0)
             {
                 listOfNodes.AddRange(DeepAllNodesStart(node.LeftChild, order));
-                listOfNodes.Add(new BSTNode(node.NodeKey));
+                listOfNodes.Add(new LiteBSTNode(node.NodeKey));
                 listOfNodes.AddRange(DeepAllNodesStart(node.RightChild, order));
             }
             //post order
@@ -334,12 +334,12 @@ namespace AlgorithmsDataStructures2
             {
                 listOfNodes.AddRange(DeepAllNodesStart(node.LeftChild, order));
                 listOfNodes.AddRange(DeepAllNodesStart(node.RightChild, order));
-                listOfNodes.Add(new BSTNode(node.NodeKey));
+                listOfNodes.Add(new LiteBSTNode(node.NodeKey));
             }
             // pre order
             if (order == 2)
             {
-                listOfNodes.Add(new BSTNode(node.NodeKey));
+                listOfNodes.Add(new LiteBSTNode(node.NodeKey));
                 listOfNodes.AddRange(DeepAllNodesStart(node.LeftChild, order));
                 listOfNodes.AddRange(DeepAllNodesStart(node.RightChild, order));
             }
@@ -347,11 +347,11 @@ namespace AlgorithmsDataStructures2
         }
     }
 
-    public class BSTNode
+    public class LiteBSTNode
     {
         public int NodeKey;
 
-        public BSTNode(int key)
+        public LiteBSTNode(int key)
         {
             NodeKey = key;
         }
