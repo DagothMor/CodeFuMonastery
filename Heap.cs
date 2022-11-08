@@ -37,7 +37,7 @@ namespace AlgorithmsDataStructures2
 
         public int GetMax()
         {
-            if (HeapArray == null)
+            if (HeapArray == null || HeapArray[0] == 0)
                 return -1;
 
             int item = HeapArray[0];
