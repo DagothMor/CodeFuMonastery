@@ -52,6 +52,7 @@
     <Compile Include="DequeController.cs" />
     <Compile Include="DynArray.cs" />
     <Compile Include="HashTable.cs" />
+    <Compile Include="Heap.cs" />
     <Compile Include="LinkedList2.cs" />
     <Compile Include="LinkedList2Controller.cs" />
     <Compile Include="LinkedListController.cs" />
