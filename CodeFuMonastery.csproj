@@ -69,6 +69,7 @@
     <Compile Include="QueueController.cs" />
     <Compile Include="Recursion\Recursion.cs" />
     <Compile Include="Refactoring\Human.cs" />
+    <Compile Include="SimpleGraph.cs" />
     <Compile Include="SimpleTree.cs" />
     <Compile Include="Stack.cs" />
     <Compile Include="StackController.cs" />
