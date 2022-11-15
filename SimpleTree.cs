@@ -41,18 +41,46 @@ namespace AlgorithmsDataStructures2
             Root = null;
         }
 
+        public List<T> EvenTrees()
+        {
+            List<T> result = new List<T>();
+            start(this.Root);
+            return result;
+
+            int start(SimpleTreeNode<T> node)
+            {
+                if (node.Children == null) return 1;
+
+                int countOfSubNodes = 0;
+                int countOfTempNodes = 0;
+
+                for (int i = 0; i < node.Children.Count; i++)
+                {
+                    countOfTempNodes = start(node.Children[i]);
+
+                    if (countOfTempNodes % 2 != 0)
+                        countOfSubNodes += countOfTempNodes;
+                    else
+                    {
+                        result.Add(node.NodeValue);
+                        result.Add(node.Children[i].NodeValue);
+                    }
+                }
+                return countOfSubNodes + 1;
+            }
+        }
         public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
         {
             if (ParentNode == null || NewChild == null) return;
             if (ParentNode.Children == null)
-                ParentNode.Children = new List<SimpleTreeNode<T>>(); 
+                ParentNode.Children = new List<SimpleTreeNode<T>>();
             ParentNode.Children.Add(NewChild);
-            if (NewChild.Children == null || NewChild.Children.Count == 0) 
+            if (NewChild.Children == null || NewChild.Children.Count == 0)
             {
                 NewChild.Parent = ParentNode;
                 NewChild.Level = ParentNode.Level + 1;
             }
-            else 
+            else
             {
                 NewChild.Parent = ParentNode;
                 this.AddLevelToAllNodes();
@@ -78,7 +106,7 @@ namespace AlgorithmsDataStructures2
             return listOfNodes;
         }
 
-        
+
         private List<SimpleTreeNode<T>> BFS(SimpleTreeNode<T> currentNode)
         {
             if (currentNode.Children == null || currentNode.Children.Count == 0)
@@ -107,14 +135,14 @@ namespace AlgorithmsDataStructures2
             return listOfNodes;
         }
 
-        private List<SimpleTreeNode<T>> BFSNodesByValue(SimpleTreeNode<T> currentNode,T val)
+        private List<SimpleTreeNode<T>> BFSNodesByValue(SimpleTreeNode<T> currentNode, T val)
         {
             var listOfNodes = new List<SimpleTreeNode<T>>();
             if (currentNode.Children == null) return listOfNodes;
             foreach (var node in currentNode.Children)
             {
-                if(node.NodeValue.Equals(val))
-                listOfNodes.Add(node);
+                if (node.NodeValue.Equals(val))
+                    listOfNodes.Add(node);
             }
             foreach (var node in currentNode.Children)
             {
@@ -137,7 +165,8 @@ namespace AlgorithmsDataStructures2
             this.AddLevelToAllNodes();
         }
         public int Count()
-        {if (this.Root == null) return 0;
+        {
+            if (this.Root == null) return 0;
             return 1 + BFSCount(this.Root);
         }
 
@@ -175,11 +204,12 @@ namespace AlgorithmsDataStructures2
             }
             return count;
         }
-        public void AddLevelToAllNodes() 
+        public void AddLevelToAllNodes()
         {
-            BFSAddLevelToAllNodes(this.Root,1);
+            BFSAddLevelToAllNodes(this.Root, 1);
         }
-        private void BFSAddLevelToAllNodes(SimpleTreeNode<T> currentNode,int level)
+
+        private void BFSAddLevelToAllNodes(SimpleTreeNode<T> currentNode, int level)
         {
             if (currentNode.Children == null) return;
             foreach (var node in currentNode.Children)
@@ -188,7 +218,7 @@ namespace AlgorithmsDataStructures2
             }
             foreach (var node in currentNode.Children)
             {
-                BFSAddLevelToAllNodes(node, level+1);
+                BFSAddLevelToAllNodes(node, level + 1);
             }
         }
 
@@ -198,7 +228,7 @@ namespace AlgorithmsDataStructures2
             return BFSNode(this.Root, nodeToFind);
         }
 
-        private bool BFSNode(SimpleTreeNode<T> currentNode,SimpleTreeNode<T> nodeToFind)
+        private bool BFSNode(SimpleTreeNode<T> currentNode, SimpleTreeNode<T> nodeToFind)
         {
             if (currentNode.Children == null) return currentNode.Equals(nodeToFind);
             foreach (var node in currentNode.Children)
