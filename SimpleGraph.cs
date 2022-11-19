@@ -77,13 +77,18 @@ namespace AlgorithmsDataStructures2
         }
         public List<Vertex<T>> DepthFirstSearch(int VFrom, int VTo)
         {
-            if (VFrom < 0 || VTo<0 || VFrom >= this.max_vertex || VTo >= this.max_vertex) return null;
-           
+            if (VFrom < 0 ||
+                VTo<0 ||
+                VFrom >= this.max_vertex ||
+                VTo >= this.max_vertex ||
+                this.vertex[VFrom] == null ||
+                this.vertex[VTo] == null) return null;
+            
             var stack = new Stack<int>();
             stack.Clear();
             for (int i = 0; i < max_vertex; i++)
             {
-                this.vertex[i].Hit = false;
+                if(this.vertex[i] != null) this.vertex[i].Hit = false;
             }
 
             var currentVertex = this.vertex[VFrom];
@@ -100,6 +105,8 @@ namespace AlgorithmsDataStructures2
 
             while (stack.Count !=0)
             {
+                VFrom = stack.Peek();
+
                 this.vertex[VFrom].Hit = true;
 
                 hasHit = false;
@@ -120,7 +127,7 @@ namespace AlgorithmsDataStructures2
                     }
                 }
                 if (hasHit) { stack.Push(VFrom); continue; }
-                else { stack.Pop(); VFrom = stack.Peek(); }
+                else { stack.Pop(); }
             }
             return null;
         }
