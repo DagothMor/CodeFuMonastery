@@ -129,7 +129,7 @@ namespace AlgorithmsDataStructures2
                 if (hasHit) { stack.Push(VFrom); continue; }
                 else { stack.Pop(); }
             }
-            return null;
+            return new List<Vertex<T>>();
         }
         private List<Vertex<T>> GetVertexes(Stack<int> stack) 
         {
