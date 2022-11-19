@@ -82,8 +82,8 @@ namespace AlgorithmsDataStructures2
                 VFrom >= this.max_vertex ||
                 VTo >= this.max_vertex ||
                 this.vertex[VFrom] == null ||
-                this.vertex[VTo] == null) return null;
-            
+                this.vertex[VTo] == null) return new List<Vertex<T>>();
+
             var stack = new Stack<int>();
             stack.Clear();
             for (int i = 0; i < max_vertex; i++)
