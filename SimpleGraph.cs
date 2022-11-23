@@ -157,10 +157,10 @@ namespace AlgorithmsDataStructures2
                 VFrom = queue.Dequeue();
 
                 this.vertex[VFrom].Hit = true;
-
+                 
                 for (int i = 0; i < max_vertex; i++)
                 {
-                    if (this.IsEdge(VFrom, i) && !this.vertex[i].Hit)
+                    if (this.IsEdge(VFrom, i) && !this.vertex[i].Hit && !queue.Contains(i))
                     {
                         queue.Enqueue(i);
                         parents[i] = VFrom;
