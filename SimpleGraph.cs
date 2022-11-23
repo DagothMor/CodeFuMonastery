@@ -131,7 +131,60 @@ namespace AlgorithmsDataStructures2
             }
             return new List<Vertex<T>>();
         }
-        private List<Vertex<T>> GetVertexes(Stack<int> stack) 
+
+        public List<Vertex<T>> BreadthFirstSearch(int VFrom, int VTo)
+        {
+            if (VFrom < 0 ||
+                VTo < 0 ||
+                VFrom >= this.max_vertex ||
+                VTo >= this.max_vertex ||
+                this.vertex[VFrom] == null ||
+                this.vertex[VTo] == null) return new List<Vertex<T>>();
+
+            var queue = new Queue<int>();
+            var parents = new int[this.max_vertex];
+            parents[VFrom] = -1;
+
+            for (int i = 0; i < max_vertex; i++)
+            {
+                if (this.vertex[i] != null) this.vertex[i].Hit = false;
+            }
+
+            queue.Enqueue(VFrom);
+
+            while (queue.Count != 0)
+            {
+                VFrom = queue.Dequeue();
+
+                this.vertex[VFrom].Hit = true;
+
+                for (int i = 0; i < max_vertex; i++)
+                {
+                    if (this.IsEdge(VFrom, i) && !this.vertex[i].Hit)
+                    {
+                        queue.Enqueue(i);
+                        parents[i] = VFrom;
+                    }
+                    if (this.IsEdge(VFrom, i) && !this.vertex[i].Hit && this.vertex[i].Equals(this.vertex[VTo]))
+                    {
+                        return GetVertexes(i, parents);
+                    }
+                }
+            }
+            return new List<Vertex<T>>();
+        }
+
+        private List<Vertex<T>> GetVertexes(int VTo, int[] parents )
+        {
+            var list = new List<Vertex<T>>();
+            for (int v = VTo; v != -1; v = parents[v])
+            {
+                list.Add(this.vertex[v]);
+            }
+            list.Reverse();
+            return list;
+        }
+            private List<Vertex<T>> GetVertexes(Stack<int> stack) 
         {
             var list = new List<Vertex<T>>();
             var reverseStack = new Stack<int>();
