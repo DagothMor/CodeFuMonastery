@@ -78,7 +78,7 @@ namespace AlgorithmsDataStructures2
         public List<Vertex<T>> DepthFirstSearch(int VFrom, int VTo)
         {
             if (VFrom < 0 ||
-                VTo<0 ||
+                VTo < 0 ||
                 VFrom >= this.max_vertex ||
                 VTo >= this.max_vertex ||
                 this.vertex[VFrom] == null ||
@@ -88,13 +88,13 @@ namespace AlgorithmsDataStructures2
             stack.Clear();
             for (int i = 0; i < max_vertex; i++)
             {
-                if(this.vertex[i] != null) this.vertex[i].Hit = false;
+                if (this.vertex[i] != null) this.vertex[i].Hit = false;
             }
 
             var currentVertex = this.vertex[VFrom];
-           
+
             stack.Push(VFrom);
-            
+
             if (this.IsEdge(VFrom, VTo))
             {
                 stack.Push(VTo);
@@ -103,7 +103,7 @@ namespace AlgorithmsDataStructures2
 
             bool hasHit = false;
 
-            while (stack.Count !=0)
+            while (stack.Count != 0)
             {
                 VFrom = stack.Peek();
 
@@ -157,7 +157,7 @@ namespace AlgorithmsDataStructures2
                 VFrom = queue.Dequeue();
 
                 this.vertex[VFrom].Hit = true;
-                 
+
                 for (int i = 0; i < max_vertex; i++)
                 {
                     if (this.IsEdge(VFrom, i) && !this.vertex[i].Hit && !queue.Contains(i))
@@ -174,7 +174,82 @@ namespace AlgorithmsDataStructures2
             return new List<Vertex<T>>();
         }
 
-        private List<Vertex<T>> GetVertexes(int VTo, int[] parents )
+
+        public List<Vertex<T>> WeakVertices()
+        {
+            if (this.max_vertex == 0 || this.vertex[0] == null) return new List<Vertex<T>>();
+
+            var VFrom = 0;
+
+            var queue = new Queue<int>();
+
+            var weakVertices = new List<Vertex<T>>();
+
+            for (int i = 0; i < max_vertex; i++)
+            {
+                if (this.vertex[i] != null) this.vertex[i].Hit = false;
+            }
+
+            queue.Enqueue(VFrom);
+
+            while (queue.Count != 0)
+            {
+                VFrom = queue.Dequeue();
+
+                this.vertex[VFrom].Hit = true;
+
+                var neighbours = new List<int>();
+
+                var isTriangle = false;
+
+                for (int i = 0; i < max_vertex; i++)
+                {
+                    if (HasEdge(VFrom, i))
+                    {
+                        neighbours.Add(i);
+                    }
+                }
+                for (int i = 0; i < max_vertex; i++)
+                {
+                    if (neighbours.Contains(i) && NotVisited(i) && NotContainsInQueue(queue, i))
+                    {
+                        queue.Enqueue(i);
+                    }
+                }
+                foreach (var neighbour in neighbours)
+                {
+                    for (int i = 0; i < max_vertex; i++)
+                    {
+                        if (i == VFrom || neighbour == i) continue;
+                        if (HasEdge(neighbour, i) && HasEdge(VFrom, i))
+                        {
+                            isTriangle = true;
+                            break;
+                        }
+                    }
+                    if (isTriangle) { break; }
+                }
+                if (!isTriangle) { weakVertices.Add(this.vertex[VFrom]); }
+            }
+            return weakVertices;
+        }
+
+        private static bool NotContainsInQueue(Queue<int> queue, int i)
+        {
+            return !queue.Contains(i);
+        }
+
+        private bool NotVisited(int i)
+        {
+            return !this.vertex[i].Hit;
+        }
+
+        private bool HasEdge(int VFrom, int i)
+        {
+            return this.IsEdge(VFrom, i);
+        }
+
+        private List<Vertex<T>> GetVertexes(int VTo, int[] parents)
         {
             var list = new List<Vertex<T>>();
             for (int v = VTo; v != -1; v = parents[v])
@@ -184,12 +259,12 @@ namespace AlgorithmsDataStructures2
             list.Reverse();
             return list;
         }
-            private List<Vertex<T>> GetVertexes(Stack<int> stack) 
+        private List<Vertex<T>> GetVertexes(Stack<int> stack)
         {
             var list = new List<Vertex<T>>();
             var reverseStack = new Stack<int>();
 
-            while (stack.Count !=0)
+            while (stack.Count != 0)
             {
                 reverseStack.Push(stack.Pop());
             }
