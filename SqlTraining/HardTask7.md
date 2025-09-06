@@ -1,6 +1,6 @@
 ```sql
 WITH
--- 1) Транзакции (знак баланса по направлению)
+-- 1) Transactions
 txn AS (
   SELECT
     tt.transaction_id,
